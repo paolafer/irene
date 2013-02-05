@@ -9,9 +9,9 @@ namespace irene {
   LightHit::LightHit() : _waveform(0),   
 			 _pes(0),
 			 _id(0),
-			 _bin_width(0),
-			 _detector_name(0)
+			 _bin_width(0)		      
   {
+    _detector_name = "unknown";
     _position.SetXYZ(0., 0., 0.);
   }
 

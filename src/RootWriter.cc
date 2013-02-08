@@ -40,7 +40,7 @@ namespace irene {
   void RootWriter::Write(Event& event)
   {
     _event = &event;
-    _event->Dump();
+
     if (!_evtTree)
       std::cout << "Event tree does not exist!" << std::endl;
 

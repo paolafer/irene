@@ -9,17 +9,23 @@ ClassImp(Particle);
 namespace irene {
 
   Particle::Particle() : _PDGcode(0), _G4TrackID(0),
-			 _primary(0), _mother(0),
-			 _daughters(0), _ionization_hits(0),
-			 _mass(0), _charge(0), _lifetime(0),
-			 _track_length(0), _name(0), 
-			 _origin_volume(0), _decay_volume(0),
-			 _creator_process(0)
+			 _primary(0), _mass(0),
+			 _charge(0), _lifetime(0),
+			 _track_length(0)
   {
+    // _mother = new TRef;
+    // _daughters = new TRefArray();
+    //  _ionization_hits = new TRefArray();
+    _ionization_hits = 0;
+    _name = "unknown";
+    _decay_volume = "unknown";
+    _origin_volume = "unknown";
+    _creator_process = "unknown";
     _initial_vertex.SetXYZT(0.,0.,0.,0.);
     _decay_vertex.SetXYZT(0.,0.,0.,0.);
     _initial_momentum.SetXYZT(0.,0.,0.,0.);
     _decay_momentum.SetXYZT(0.,0.,0.,0.);
+    SetParameters(0,0,-1);
     _properties.clear();
   }
 
@@ -27,6 +33,13 @@ namespace irene {
   {
     SetPDGcode(pdg_code);
     SetName(pdg_code);
+  }
+
+  Particle::~Particle()
+  {
+    _ionization_hits.Delete();
+    // delete _mother;
+    // delete _daughters;
   }
 
   // Particle::Particle(std::string name)
@@ -79,41 +92,29 @@ namespace irene {
       return false;    
   }
 
- const Particle* Particle::GetMother() const
+ // const Particle* Particle::GetMother() const
+ //  {
+ //    return dynamic_cast<irene::Particle*> (_mother.GetObject());
+ //  }
+
+  // void Particle::AddDaughter(Particle* daughter)
+  // {
+  //   _daughters->Add(daughter);
+  // }
+
+  // const TRefArray* Particle::GetDaughters() const
+  // {   
+  //   return _daughters;
+  // }
+
+  void Particle::AddIoniHit(IonizationHit* hit)
   {
-    return dynamic_cast<irene::Particle*> (_mother.GetObject());
+    _ionization_hits.Add(hit);
   }
 
-  void Particle::AddDaughter(const Particle* daughter)
+  const TRefArray& Particle::GetIoniHits() const
   {
-    _daughters.Add((Particle*) daughter);
-  }
-
-   const std::vector<Particle*> Particle::GetDaughters() const
-  {
-    std::vector<Particle*> daughters;
-
-    for (int i=0; i<_daughters.GetLast()+1; ++i) {
-      Particle* mydaught = dynamic_cast<Particle*> (_daughters[i]);
-      daughters.push_back(mydaught);
-    }
-    return daughters;
-  }
-
-  void Particle::AddIoniHit(const IonizationHit* hit)
-  {
-    _ionization_hits.Add((IonizationHit*) hit);
-  }
-
-   const std::vector<IonizationHit*> Particle::GetIoniHits() const
-  {
-    std::vector<IonizationHit*> ionization_hits;
-
-    for (int i=0; i<_ionization_hits.GetLast()+1; ++i) {
-      IonizationHit* myhit = dynamic_cast<IonizationHit*> (_ionization_hits[i]);
-      ionization_hits.push_back(myhit);
-    }
-    return ionization_hits;
+    return _ionization_hits;
   }
 
   void Particle::SetParameters(double m, double q, double l)
@@ -125,88 +126,96 @@ namespace irene {
 
   void Particle::SetName(const int& code) 
   {
-    std::string name = "unknown";
-    SetParameters(0,0,-1);
-
     if (code == 22) {
-      name = "gamma";
+      _name = "gamma";
       SetParameters(0,0,-1);
     } else if (code == -11) {
-      name = "e+";
+      _name = "e+";
       SetParameters(5.10998902E-04*GeV,1,-1);
     } else if (code == 11) {
-      name = "e-";
+      _name = "e-";
       SetParameters(5.10998902E-04*GeV,-1,-1);
     } else if (code == -13) {
-      name = "mu+";
+      _name = "mu+";
       SetParameters(1.05658357E-01*GeV,1,2.197e-6*second);
     } else if (code == 13) {
-      name = "mu-";
+      _name = "mu-";
       SetParameters(1.05658357E-01*GeV,1,2.197e-6*second);
     } else if (code == -15) {
-      name = "tau+";
+      _name = "tau+";
       SetParameters(1.77699*GeV,1,291e-15*second);
     } else if (code == 15) {
-      name = "tau-";
+      _name = "tau-";
       SetParameters(1.77699*GeV,-1,291e-15*second);
     } else if (code == 12) {
-      name = "nu_e";
+      _name = "nu_e";
       SetParameters(0,0,-1);
     } else if (code == -12) {
-      name = "anti_nu_e";
+      _name = "anti_nu_e";
       SetParameters(0,0,-1);
     } else if (code == 14) {
-      name = "nu_mu";
+      _name = "nu_mu";
       SetParameters(0,0,-1);
     } else if (code == -14) {
-      name = "anti_nu_mu";
+      _name = "anti_nu_mu";
       SetParameters(0,0,-1);
     }  else if (code == 16) {
-      name = "nu_tau";
+      _name = "nu_tau";
       SetParameters(0,0,-1);
     } else if (code == -16) {
-      name = "anti_nu_tau";
+      _name = "anti_nu_tau";
       SetParameters(0,0,-1);
     } else if (code == 211) {
-      name = "pi+";
+      _name = "pi+";
       SetParameters(1.3957018E-01*GeV,1,2.603e-8*second);
     } else if (code == -211) {
-      name = "pi-";
+      _name = "pi-";
       SetParameters(1.3957018E-01*GeV,-1,2.603e-8*second);
     } else if (code == 111) {
-      name = "pi0";
+      _name = "pi0";
       SetParameters(1.349766E-01*GeV,0,8.4e-17*second);
     } else if (code == 321) {
-      name = "kaon+";
+      _name = "kaon+";
       SetParameters(4.93677E-01*GeV,1,1.2386e-8*second);
     } else if (code == -321) {
-      name = "kaon-";
+      _name = "kaon-";
       SetParameters(4.93677E-01*GeV,-1,1.2386e-8*second);
     } else if (code == 130) {
-      name = "kaon0L";
+      _name = "kaon0L";
       SetParameters(4.97672E-01*GeV,0,5.17e-8*second);
     } else if (code == 311) {
-      name = "kaon0";
+      _name = "kaon0";
       SetParameters(4.97672E-01*GeV,0,0.89e-10*second);
     } else if (code == 2212) {
-      name = "proton";
+      _name = "proton";
       SetParameters(9.3827200E-01*GeV,1,-1);
     } else if (code == -2212) {
-      name = "anti_proton";
+      _name = "anti_proton";
       SetParameters(9.3827200E-01*GeV,-1,-1);
     } else if (code == 2112) {
-      name = "neutron";
+      _name = "neutron";
       SetParameters(9.3956533E-01*GeV,0,-1);
     } else if (code == -2112) {
-      name = "anti_neutron";
+      _name = "anti_neutron";
       SetParameters(9.3956533E-01*GeV,0,-1);
     } else if (code == 1000020040) {
-      name = "alpha";
+      _name = "alpha";
       SetParameters(3.727*GeV,0,-1);
     }
 
-    _name = name;
+  }
 
+  void Particle::Info(ostream& s) const
+  {
+    s << std::endl;    
+    s << "Particle name = " << _name << std::endl;
+    s << "List of ionization hits of the particle"
+      << " ----------------------" << std::endl;
+
+    for (int i=0; i<_ionization_hits.GetLast()+1; ++i) {
+      IonizationHit* ihit = (IonizationHit*)_ionization_hits.At(i);
+      s << *ihit << std::endl;
+      }
   }
     
   // void Particle::SetParticleName(std::string name) 
@@ -335,5 +344,13 @@ namespace irene {
   //   }
     
   // }
+
+
   
 }
+
+ostream& operator << (ostream& s, const irene::Particle& p) {
+  p.Info(s);
+  return s; 
+}
+

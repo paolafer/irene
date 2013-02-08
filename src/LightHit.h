@@ -12,8 +12,7 @@ namespace irene {
   public:
     // default constructor
     LightHit();
-    // copy constructor
-    //   LightHit(const irene::LightHit& hit);
+    
     LightHit(std::string det_name);
     // destructor
     virtual ~LightHit() {}
@@ -47,6 +46,8 @@ namespace irene {
 
     void SetDetectorName(const std::string);
     const std::string GetDetectorName() const;
+
+    void Info(ostream& s) const;
     
 
     ClassDef(LightHit,1);
@@ -68,5 +69,7 @@ namespace irene {
   inline const std::string LightHit::GetDetectorName() const {return _detector_name;}
 
 }
+
+ostream& operator << (ostream& s, const irene::LightHit& lh);
 
 #endif

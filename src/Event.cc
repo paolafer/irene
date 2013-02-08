@@ -38,9 +38,9 @@ namespace irene {
 
   void Event::Clear()
   {
-    _light_hits->Clear();
-    _ionization_hits->Clear();
-    _particles->Clear();
+    _light_hits->Delete();
+    _ionization_hits->Delete();
+    _particles->Delete();
     _eventID = 0;
   }
 
@@ -48,8 +48,6 @@ namespace irene {
   {
     s << std::endl;    
     s << " event number = " << this->GetID() << std::endl;
-    
-    //  s << " event vertex (mm)= " << this->GetOriginvertex()  << std::endl;
     
     s << " Event has " << this->GetIonizationHits()->GetLast()+1 << " ionization hits"
       << std::endl;
@@ -64,9 +62,9 @@ namespace irene {
     
     for (unsigned int ihit=0; ihit<lighthits->GetLast()+1; ++ihit) {
       irene::LightHit* myhit = (irene::LightHit*)lighthits->At(ihit);
-      s << " hit of type " << myhit->GetDetectorName() <<std::endl; 
-      s << " energy = " << myhit->GetPes() << " pes" <<std::endl; 
-      //  s << *(i->second) <<std::endl;
+      // s << " hit of type " << myhit->GetDetectorName() <<std::endl; 
+      // s << " energy = " << myhit->GetPes() << " pes" <<std::endl; 
+      s << *myhit <<std::endl;
     }
   
     s << " List of ionization hits in the event"
@@ -75,9 +73,9 @@ namespace irene {
     
     for (unsigned int ihit=0; ihit<ionihits->GetLast()+1; ++ihit) {
       irene::IonizationHit* myhit = (irene::IonizationHit*)ionihits->At(ihit);
-      s << " hit of type " << myhit->GetDetectorName() <<std::endl; 
-      s << " energy = " << myhit->GetEnergy() << " MeV" <<std::endl; 
-      //  s << *(i->second) <<std::endl;
+      // s << " hit of type " << myhit->GetDetectorName() <<std::endl; 
+      // s << " energy = " << myhit->GetEnergy() << " MeV" <<std::endl; 
+      s << *myhit <<std::endl;
     }
 
 
@@ -86,9 +84,9 @@ namespace irene {
     TObjArray* particles = (TObjArray*)this->GetParticles();
     
     for (unsigned int ipart=0; ipart<this->GetParticles()->GetLast()+1; ipart++){
-      
+      irene::Particle* mypart = (irene::Particle*)particles->At(ipart);
       // Particle& p = *this->true_particles()[ipart];
-      // s << p << std::endl;
+      s << *mypart <<std::endl;
     }    
   
   }

@@ -22,7 +22,7 @@ namespace irene {
     //    Particle(std::string);
     Particle(const int& pdg);
     // destructor
-    ~Particle() {}
+    ~Particle();
     
   private:
     int _PDGcode;
@@ -32,8 +32,8 @@ namespace irene {
     TLorentzVector _decay_momentum;
     int _G4TrackID;
     bool _primary;
-    TRef _mother;
-    TRefArray _daughters;
+    //   TRef _mother;
+    //  TRefArray* _daughters;
     TRefArray _ionization_hits;
     double _mass;
     double _charge;
@@ -74,14 +74,14 @@ namespace irene {
     void SetPrimary(bool is_primary);
     const bool IsPrimary();
 
-    void SetMother(const irene::Particle* mother);
-    const irene::Particle* GetMother() const;
+    /* void SetMother(const irene::Particle* mother); */
+    /* const irene::Particle* GetMother() const; */
 
-    void AddDaughter(const irene::Particle* daughter);
-    const std::vector<irene::Particle*> GetDaughters() const;
+    /* void AddDaughter(irene::Particle* daughter); */
+    /* const TRefArray* GetDaughters() const; */
 
-    void AddIoniHit(const irene::IonizationHit* hit);
-    const std::vector<irene::IonizationHit*> GetIoniHits() const;
+    void AddIoniHit(irene::IonizationHit* hit);
+    const TRefArray& GetIoniHits() const;
  
     void SetParameters(double m, double q, double l);
 
@@ -107,6 +107,8 @@ namespace irene {
     /* Useful methods to access some properties*/
 
     const double Energy();
+
+    void Info(ostream& s) const;
     
     
 
@@ -121,7 +123,7 @@ namespace irene {
   inline const TLorentzVector Particle::GetDecayVertex() const {return _decay_vertex;}
   inline const TLorentzVector Particle::GetInitialMomentum() const {return _initial_momentum;}
   inline const TLorentzVector Particle::GetDecayMomentum() const {return _decay_momentum;}
-  inline void Particle::SetMother(const irene::Particle* mother) {_mother = (irene::Particle*)mother;}
+  // inline void Particle::SetMother(const irene::Particle* mother) {_mother = (irene::Particle*)mother;}
   inline void Particle::SetG4TrackID(const int& trackID) {_G4TrackID = trackID;}
   inline const int Particle::GetG4TrackID() const {return _G4TrackID;}
   inline const std::string Particle::Name() const {return _name;}
@@ -139,5 +141,7 @@ namespace irene {
   inline const double Particle::Energy() {return _initial_momentum.Energy();}
 
 }
+
+ostream& operator << (ostream& s, const irene::Particle& p);
 
 #endif

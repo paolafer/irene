@@ -1,5 +1,7 @@
 #include "LightHit.h"
 
+#include <iomanip>
+
 using namespace irene; 
 
 ClassImp(LightHit)
@@ -21,12 +23,6 @@ namespace irene {
   }
   
 
-  // LightHit::LightHit(const irene::LightHit& hit)
-  // {
-  //   _pes = hit._pes;
-  //   _waveform = hit._waveform;
-  // }
-
   void LightHit::SetSample(const double& amp, 
 			   const double& time) {
     std::pair<double, int> sample;
@@ -34,7 +30,22 @@ namespace irene {
     sample.second = amp;
     _waveform.push_back(sample);
   } 
+  
+  void LightHit::Info(ostream& s) const
+  {
+    s << std::endl;    
+    s << this->GetDetectorName() << " hit, ID = " << this->GetID()  
+     << std::endl;
+    s  << " x (mm)    y (mm)    z (mm)    " << std::endl;
+    s << std::setw(5) << _position.X() <<"     " 
+      << std::setw(5) << _position.Y() <<"     " 
+      << std::setw(5) << _position.Z() << std::endl;
+    s << "total charge = "<< _pes << std::endl;
+  }
 
 } // namespace irene
 
-
+ostream& operator << (ostream& s, const irene::LightHit& lh) {
+  lh.Info(s);
+  return s; 
+}

@@ -3,6 +3,7 @@
 
 #include "Particle.h"
 
+#include <iostream>
 #include <TObject.h>
 #include <TLorentzVector.h>
 #include <TRef.h>
@@ -15,7 +16,6 @@ namespace irene {
     // constructor
     IonizationHit();
     IonizationHit(std::string det_name);
-    // copy constructor
     // destructor
     ~IonizationHit() {}
 
@@ -42,6 +42,8 @@ namespace irene {
 
     const std::string GetDetectorName() const;
 
+    void Info(ostream& s) const;
+
     ClassDef(IonizationHit,1);
 
   };
@@ -59,5 +61,7 @@ namespace irene {
   inline const std::string IonizationHit::GetDetectorName() const {return _detector_name;}
   
 }
+
+ostream& operator << (ostream& s, const irene::IonizationHit& lh);
 
 #endif

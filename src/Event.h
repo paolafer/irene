@@ -1,18 +1,17 @@
-#ifndef __PEVENT_H__
-#define __PEVENT_H__
+#ifndef __EVENT_H__
+#define __EVENT_H__
 
+#include "LightHit.h"
 #include "IonizationHit.h"
+#include "Particle.h"
 
 #include <iostream>
 #include <TObject.h>
-#include <TRefArray.h>
 
+/*No forward declarations of classes to be streamed
+  allowed here --- understand why*/
 
-namespace irene { 
-  class LightHit;
-  class Particle;}
-
-class TClonesArray;
+class TObjArray;
 
 namespace irene {
 
@@ -20,30 +19,26 @@ namespace irene {
     
   public: 
     Event();
-    //    Event(const irene::Event& evt);
-    ~Event() {}
+
+    ~Event();
 
   private:
 
-    static TClonesArray* _slight_hits;
-
-    TClonesArray* _light_hits;
-    //    TRefArray _ionization_hits;
-    //   TRefArray _particles;
+    TObjArray* _light_hits;
+    TObjArray* _ionization_hits;
+    TObjArray* _particles;
     int _eventID;
-
-    int _nlhits;
   
 
   public:
-    irene::LightHit* AddLightHit(const std::string det_name); 
-    const TClonesArray* GetLightHits() const;
+    void AddLightHit(irene::LightHit* hit);
+    const TObjArray* GetLightHits() const;
 
-    /* void AddIonizationHit(const irene::IonizationHit* hit);  */
-    /* const std::vector<irene::IonizationHit*> GetIonizationHits() const; */
+    void AddIonizationHit(irene::IonizationHit* hit);
+    const TObjArray* GetIonizationHits() const;
 
-    /* void AddParticle(const irene::Particle* hit);  */
-    /* const std::vector<irene::Particle*> GetParticles() const; */
+    void AddParticle(irene::Particle* particle);
+    const TObjArray* GetParticles() const;
 
     void SetID(const int& id); 
     const int GetID() const;
@@ -57,11 +52,13 @@ namespace irene {
   };
 
   // INLINE methods
-  inline const TClonesArray* Event::GetLightHits() const {return _light_hits;}
+  inline const TObjArray* Event::GetLightHits() const {return _light_hits;}
+  inline const TObjArray* Event::GetIonizationHits() const {return _ionization_hits;}
+  inline const TObjArray* Event::GetParticles() const {return _particles;}
   inline void Event::SetID(const int& id) {_eventID = id;}
   inline const int Event::GetID() const {return _eventID;}  
 }
 
 ostream& operator << (ostream& s, const irene::Event& ev);
 
-#endif
+#endif // __EVENT_H__

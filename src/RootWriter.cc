@@ -17,12 +17,12 @@ namespace irene {
     if (_file)
       delete _file;
 
-    _event = 0;
-
+     _event = 0;
+     //_event = new Event();
     _file = new TFile(filename.c_str(), option.c_str());
     _evtTree = new TTree("EVENT","Irene event tree");
     TTree::SetBranchStyle(1);
-    _evtTree->Branch("EventBranch","irene::Event",&_event,32000,0);
+    _evtTree->Branch("EventBranch","irene::Event",&_event,32000,1);
     _isopen = true;
   }
 
@@ -40,6 +40,10 @@ namespace irene {
   void RootWriter::Write(Event& event)
   {
     _event = &event;
+    _event->Dump();
+    if (!_evtTree)
+      std::cout << "Event tree does not exist!" << std::endl;
+
     _evtTree->Fill();
   }
 

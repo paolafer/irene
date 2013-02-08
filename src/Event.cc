@@ -2,8 +2,7 @@
 #include "LightHit.h"
 #include "Particle.h"
 
-#include <TRef.h>
-#include <TClonesArray.h>
+#include <TObjArray.h>
 
 using namespace irene;
 
@@ -11,109 +10,88 @@ ClassImp(Event)
 
 namespace irene {
 
-  TClonesArray* Event::_slight_hits = 0;
-
-  Event::Event() : _eventID(0), _nlhits(0)
+  Event::Event() : _eventID(0)
   {
-    if (!_slight_hits) {
-      _slight_hits = new TClonesArray("irene::LightHit", 100);
-      std::cout << "Existe!" << std::endl;
-    }
-  
-    _light_hits = _slight_hits;
-  }
- 
-  LightHit* Event::AddLightHit(const std::string det_name)
-  {
-    if (!_light_hits) 
-      std::cout << "Now it doesn't exist!" << std::endl;
-    std::cout << "Entering AddLighHit in position " << std::endl;
-    irene::LightHit* lhit = (irene::LightHit*)_light_hits->ConstructedAt(_nlhits++);
-    std::cout << "hit created" << std::endl;
-    lhit->SetDetectorName(det_name);
-    std::cout << "Name set" << std::endl;
-    return lhit;
+    _light_hits = new TObjArray();
+    _ionization_hits = new TObjArray();
+    _particles = new TObjArray();
   }
 
-  // void Event::AddIonizationHit(const irene::IonizationHit* hit)
-  // {
-  //   _ionization_hits.Add((irene::IonizationHit*) hit);
-  // }
+  Event::~Event() {
+    Clear();
+  }
 
-  // const std::vector<irene::IonizationHit*> Event::GetIonizationHits() const
-  // {
-  //   std::vector<irene::IonizationHit*> hits;
+  void Event::AddLightHit(irene::LightHit* hit)
+  {
+    _light_hits->AddLast(hit);
+  }
 
-  //   for (int i=0; i<_ionization_hits.GetLast()+1; ++i) {
-  //     irene::IonizationHit* myhit = dynamic_cast<irene::IonizationHit*> (_ionization_hits[i]);
-  //     hits.push_back(myhit);
-  //   }
-  //   return hits;
-  // }
+  void Event::AddIonizationHit(irene::IonizationHit* hit)
+  {
+    _ionization_hits->AddLast(hit);
+  }
 
-  //  void Event::AddParticle(const irene::Particle* part)
-  // {
-  //   _particles.Add((irene::Particle*) part);
-  // }
-
-  // const std::vector<irene::Particle*> Event::GetParticles() const
-  // {
-  //   std::vector<irene::Particle*> particles;
-
-  //   for (int i=0; i<_particles.GetLast()+1; ++i) {
-  //     irene::Particle* mypart = dynamic_cast<irene::Particle*> (_particles[i]);
-  //     particles.push_back(mypart);
-  //   }
-  //   return particles;
-  // }
+   void Event::AddParticle(irene::Particle* particle)
+  {
+    _particles->AddLast(particle);
+  }
 
   void Event::Clear()
   {
     _light_hits->Clear();
-    // _ionization_hits.Clear();
-    // _particles.Clear();
+    _ionization_hits->Clear();
+    _particles->Clear();
     _eventID = 0;
   }
 
-  void Event::Info(ostream& s) const{
+  void Event::Info(ostream& s) const
+  {
+    s << std::endl;    
+    s << " event number = " << this->GetID() << std::endl;
+    
+    //  s << " event vertex (mm)= " << this->GetOriginvertex()  << std::endl;
+    
+    s << " Event has " << this->GetIonizationHits()->GetLast()+1 << " ionization hits"
+      << std::endl;
+    s << " Event has " << this->GetLightHits()->GetLast()+1 << " light hits"
+      << std::endl;
+    s << " Event has " << this->GetParticles()->GetLast()+1 << " particles"
+      << std::endl;  
 
-  // s << std::endl;
+    s << " List of light hits in the event"
+      << "------------------------------------" << std::endl;
+    TObjArray* lighthits = (TObjArray*)this->GetLightHits();
     
-  // s << " event number= " << this->GetID() << std::endl;
-    
-  // //  s << " event vertex (mm)= " << this->GetOriginvertex()  << std::endl;
-    
-  // s << " Event has " << this->GetIonizationHits().size() << " ionization hits"
-  //   << std::endl;
-  // // s << " Event has " << this->GetLightHits()->size() << " light hits"
-  // //   << std::endl;
-  // s << " Event has " << this->GetParticles().size() << " particles"
-  //   << std::endl;    
+    for (unsigned int ihit=0; ihit<lighthits->GetLast()+1; ++ihit) {
+      irene::LightHit* myhit = (irene::LightHit*)lighthits->At(ihit);
+      s << " hit of type " << myhit->GetDetectorName() <<std::endl; 
+      s << " energy = " << myhit->GetPes() << " pes" <<std::endl; 
+      //  s << *(i->second) <<std::endl;
+    }
   
-  // s << " List of ionization hits in the event"
-  //   << "------------------------------------" << std::endl;
-  // std::vector<IonizationHit*> ionihits = this->GetIonizationHits();
+    s << " List of ionization hits in the event"
+      << "------------------------------------" << std::endl;
+    TObjArray* ionihits = (TObjArray*)this->GetIonizationHits();
     
-  // // typedef multimap<string, hit*>::const_iterator I;  
-  // for(unsigned int ihit=0; ihit<ionihits.size(); ++ihit)
-  //   {
-  //     //  s << ionihits[ihit]->GetDetectorName() <<" hit: "<<std::endl; 
-  //      s << ionihits[ihit]->GetEnergy() <<std::endl; 
-  //     //  s << *(i->second) <<std::endl;
-  //   }
+    for (unsigned int ihit=0; ihit<ionihits->GetLast()+1; ++ihit) {
+      irene::IonizationHit* myhit = (irene::IonizationHit*)ionihits->At(ihit);
+      s << " hit of type " << myhit->GetDetectorName() <<std::endl; 
+      s << " energy = " << myhit->GetEnergy() << " MeV" <<std::endl; 
+      //  s << *(i->second) <<std::endl;
+    }
 
 
-  // s << " List of particles in the event"
-  //   << "------------------------------------" << std::endl;
-  // std::vector<Particle*> particles = this->GetParticles();
+    s << " List of particles in the event"
+      << "------------------------------------" << std::endl;
+    TObjArray* particles = (TObjArray*)this->GetParticles();
     
-  // for(unsigned int ipart=0; ipart<this->GetParticles().size(); ipart++){
+    for (unsigned int ipart=0; ipart<this->GetParticles()->GetLast()+1; ipart++){
       
-  //   // Particle& p = *this->true_particles()[ipart];
-  //   // s << p << std::endl;
-    // }    
+      // Particle& p = *this->true_particles()[ipart];
+      // s << p << std::endl;
+    }    
   
-}
+  }
 
 } // namespace irene
 

@@ -32,8 +32,9 @@ namespace irene {
     TLorentzVector _decay_momentum;
     int _G4TrackID;
     bool _primary;
-    //   TRef _mother;
-    //  TRefArray* _daughters;
+    bool _has_mother;
+    TRef _mother;
+    TRefArray _daughters;
     TRefArray _ionization_hits;
     double _mass;
     double _charge;
@@ -74,11 +75,11 @@ namespace irene {
     void SetPrimary(bool is_primary);
     const bool IsPrimary();
 
-    /* void SetMother(const irene::Particle* mother); */
-    /* const irene::Particle* GetMother() const; */
+    void SetMother(const irene::Particle* mother);
+    const irene::Particle* GetMother() const;
 
-    /* void AddDaughter(irene::Particle* daughter); */
-    /* const TRefArray* GetDaughters() const; */
+    void AddDaughter(irene::Particle* daughter);
+    const TRefArray& GetDaughters() const;
 
     void AddIoniHit(irene::IonizationHit* hit);
     const TRefArray& GetIoniHits() const;
@@ -104,9 +105,13 @@ namespace irene {
     void AddProperty(std::string pname, double& pvalue);
     const double FindProperty(const std::string pname);
 
+    const double GetMass() const;
+    const double GetCharge() const;
+
     /* Useful methods to access some properties*/
 
-    const double Energy();
+    double Energy() const;
+    double Momentum() const;
 
     void Info(ostream& s) const;
     
@@ -123,7 +128,6 @@ namespace irene {
   inline const TLorentzVector Particle::GetDecayVertex() const {return _decay_vertex;}
   inline const TLorentzVector Particle::GetInitialMomentum() const {return _initial_momentum;}
   inline const TLorentzVector Particle::GetDecayMomentum() const {return _decay_momentum;}
-  // inline void Particle::SetMother(const irene::Particle* mother) {_mother = (irene::Particle*)mother;}
   inline void Particle::SetG4TrackID(const int& trackID) {_G4TrackID = trackID;}
   inline const int Particle::GetG4TrackID() const {return _G4TrackID;}
   inline const std::string Particle::Name() const {return _name;}
@@ -137,8 +141,11 @@ namespace irene {
   inline const std::string Particle::GetCreatorProcess() const {return _creator_process;}
   inline void Particle::AddProperty(std::string pname, double& pvalue) {_properties[pname] = pvalue;}
   inline const double Particle::FindProperty(const std::string pname) {return _properties[pname];}
+  inline const double Particle::GetMass() const {return _mass;}
+  inline const double Particle::GetCharge() const {return _charge;}
 
-  inline const double Particle::Energy() {return _initial_momentum.Energy();}
+  inline double Particle::Energy() const {return _initial_momentum.Energy();}
+  inline double Particle::Momentum() const {return _initial_momentum.P();}
 
 }
 

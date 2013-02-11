@@ -17,7 +17,7 @@ namespace irene {
     IonizationHit();
     IonizationHit(std::string det_name);
     // destructor
-    ~IonizationHit() {}
+    ~IonizationHit();
 
   private:
     TLorentzVector _space_time;

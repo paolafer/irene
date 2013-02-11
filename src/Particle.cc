@@ -9,14 +9,16 @@ ClassImp(Particle);
 namespace irene {
 
   Particle::Particle() : _PDGcode(0), _G4TrackID(0),
-			 _primary(0), _mass(0),
-			 _charge(0), _lifetime(0),
-			 _track_length(0)
+			 _primary(false), _has_mother(false),
+			 _mass(0), _charge(0),
+			 _lifetime(0), _track_length(0)
   {
     // _mother = new TRef;
     // _daughters = new TRefArray();
     //  _ionization_hits = new TRefArray();
     _ionization_hits = 0;
+    _daughters = 0;
+    _mother = 0;
     _name = "unknown";
     _decay_volume = "unknown";
     _origin_volume = "unknown";
@@ -39,7 +41,7 @@ namespace irene {
   {
     _ionization_hits.Delete();
     // delete _mother;
-    // delete _daughters;
+    _daughters.Delete();
   }
 
   // Particle::Particle(std::string name)
@@ -81,7 +83,8 @@ namespace irene {
 
   void Particle::SetPrimary(bool is_primary)
   {
-    _primary == is_primary;
+    _primary = is_primary;
+    _has_mother = false;
   }
   
   const bool Particle::IsPrimary()
@@ -91,21 +94,27 @@ namespace irene {
     else
       return false;    
   }
+  
+  void Particle::SetMother(const irene::Particle* mother) 
+  {
+    _mother = (irene::Particle*)mother;
+    _has_mother = true;
+  }
 
- // const Particle* Particle::GetMother() const
- //  {
- //    return dynamic_cast<irene::Particle*> (_mother.GetObject());
- //  }
+  const Particle* Particle::GetMother() const
+  {
+    return dynamic_cast<irene::Particle*> (_mother.GetObject());
+  }
 
-  // void Particle::AddDaughter(Particle* daughter)
-  // {
-  //   _daughters->Add(daughter);
-  // }
-
-  // const TRefArray* Particle::GetDaughters() const
-  // {   
-  //   return _daughters;
-  // }
+  void Particle::AddDaughter(Particle* daughter)
+  {
+    _daughters.Add(daughter);
+  }
+  
+  const TRefArray& Particle::GetDaughters() const
+  {   
+    return _daughters;
+  }
 
   void Particle::AddIoniHit(IonizationHit* hit)
   {
@@ -205,10 +214,72 @@ namespace irene {
 
   }
 
+
   void Particle::Info(ostream& s) const
   {
     s << std::endl;    
-    s << "Particle name = " << _name << std::endl;
+    s << "Particle name = " << _name << ", PDG code = " << _PDGcode << 
+      ", mass (MeV) = " << _mass << ", charge = "<< _charge << std::endl;
+    s << "++++at production vertex ++++" << std::endl;
+    s << "particle 3 momentum (MeV) =" << std::endl;
+    s << "(" << _initial_momentum.X()/MeV << "," << _initial_momentum.Y()/MeV <<
+      "," << _initial_momentum.Z()/MeV << ")" << std::endl;
+    s << " momentum (MeV) = " << this->Momentum()/MeV << std::endl;
+    s << " energy (MeV)= " << this->Energy()/MeV << std::endl;
+    s << " vertex (mm)= " <<  std::endl;
+    s << "(" << _initial_vertex.X()/mm << "," << _initial_vertex.Y()/mm <<
+      "," << _initial_vertex.Z()/mm << ")" << std::endl;
+    s << "++++at decay vertex ++++" << std::endl;
+    s << "particle 3 momentum (MeV) =" << std::endl;
+    s << "(" << _decay_momentum.X()/MeV << "," << _decay_momentum.Y()/MeV <<
+      "," << _decay_momentum.Z()/MeV << ")" << std::endl;
+    s << " momentum (MeV) = " << sqrt(_decay_momentum.X()*_decay_momentum.X() + 
+				      _decay_momentum.Y()*_decay_momentum.Y() +
+				      _decay_momentum.Z()*_decay_momentum.Z())/MeV << std::endl;
+    s << " energy (MeV)= " << _decay_momentum.T()/MeV << std::endl;
+    s << " vertex (mm)= " <<  std::endl;
+    s << "(" << _decay_vertex.X()/mm << "," << _decay_vertex.Y()/mm <<
+      "," << _decay_vertex.Z()/mm << ")" << std::endl;
+    s << "creator process = " << _creator_process << std::endl;
+    s << "origin volume = " << _origin_volume << std::endl;
+    s << "decay volume = " << _decay_volume << std::endl;
+    s << "G4TrackID = " << _G4TrackID << std::endl;
+    s << "track length = " << _track_length << std::endl;
+
+    if (_primary) {
+      s << "particle is primary " << std::endl;
+    } else {
+      s << "particle is secondary" << std::endl;
+      if (_has_mother) {
+	s << "mother of particle is " << this->GetMother()->Name() << std::endl;
+	s << "with 3 momentum (MeV) ="  << std::endl;
+	s << "(" << this->GetMother()->GetInitialMomentum().X()/MeV << "," << 
+	  this->GetMother()->GetInitialMomentum().Y()/MeV << "," << 
+	  this->GetMother()->GetInitialMomentum().Z()/MeV << ")" << std::endl;
+	s << "and energy (MeV)= " << this->GetMother()->Energy()/MeV << std::endl;
+      }
+    }
+
+    s << " List of secondary particles "
+      << "-----------------------------" << std::endl;  
+ 
+    for (int i=0; i<_daughters.GetLast()+1; ++i){
+      Particle* p = (Particle*)_daughters.At(i);
+      s << "daughter name = " << p->Name()
+	<< ", daughter mass (MeV)= " << p->GetMass()/MeV
+	<< ", daughter charge = " << p->GetCharge()
+	<< std::endl;     
+     
+      s << "particle 3 momentum (MeV) = " << std::endl;
+      s << "(" << p->GetInitialMomentum().X()/MeV << "," << 
+	p->GetInitialMomentum().Y()/MeV << "," << 
+	p->GetInitialMomentum().Z()/MeV << ")" << std::endl;
+      s << "particle momentum (MeV) =" << p->Momentum()/MeV << std::endl;      
+      s << "particle energy (MeV)= " << p->Energy()/MeV << std::endl;
+      
+    }
+    
+
     s << "List of ionization hits of the particle"
       << " ----------------------" << std::endl;
 

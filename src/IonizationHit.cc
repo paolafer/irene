@@ -20,6 +20,11 @@ namespace irene {
     _detector_name = det_name;
   }
 
+  IonizationHit::~IonizationHit()
+  {
+    
+  }
+
   const irene::Particle* IonizationHit::GetParticle() const
   {
     return dynamic_cast<irene::Particle*> (_particle.GetObject());
@@ -28,7 +33,7 @@ namespace irene {
   void IonizationHit::Info(ostream& s) const
   {
     s << std::endl;  
-    s << this->GetDetectorName() << " hit " << std::endl;
+    s << _detector_name << " hit " << std::endl;
     s  << " x (mm)    y (mm)    z (mm)    " << std::endl;
     s << std::setw(5) << _space_time.X() <<"     " 
       << std::setw(5) << _space_time.Y() <<"     " 

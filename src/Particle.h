@@ -19,7 +19,7 @@ namespace irene {
   public:
     // constructor
     Particle();
-    //    Particle(std::string);
+    Particle(std::string name);
     Particle(const int& pdg);
     // destructor
     ~Particle();
@@ -79,14 +79,15 @@ namespace irene {
     const irene::Particle* GetMother() const;
 
     void AddDaughter(irene::Particle* daughter);
-    const TRefArray& GetDaughters() const;
+    
+    TRefArray& GetDaughters();
 
     void AddIoniHit(irene::IonizationHit* hit);
     const TRefArray& GetIoniHits() const;
  
     void SetParameters(double m, double q, double l);
 
-    //   void SetParticleName(std::string name);
+    void SetParticleName(std::string name);
     void SetName(const int& code);
     const std::string Name() const;
 

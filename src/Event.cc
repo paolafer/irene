@@ -36,6 +36,11 @@ namespace irene {
     _particles->AddLast(particle);
   }
 
+  void Event::RemoveParticle(irene::Particle* particle)
+  {
+    _particles->Remove(particle);
+  }
+
   void Event::Clear()
   {
     _light_hits->Delete();
@@ -62,8 +67,6 @@ namespace irene {
     
     for (unsigned int ihit=0; ihit<lighthits->GetLast()+1; ++ihit) {
       irene::LightHit* myhit = (irene::LightHit*)lighthits->At(ihit);
-      // s << " hit of type " << myhit->GetDetectorName() <<std::endl; 
-      // s << " energy = " << myhit->GetPes() << " pes" <<std::endl; 
       s << *myhit <<std::endl;
     }
   
@@ -73,8 +76,6 @@ namespace irene {
     
     for (unsigned int ihit=0; ihit<ionihits->GetLast()+1; ++ihit) {
       irene::IonizationHit* myhit = (irene::IonizationHit*)ionihits->At(ihit);
-      // s << " hit of type " << myhit->GetDetectorName() <<std::endl; 
-      // s << " energy = " << myhit->GetEnergy() << " MeV" <<std::endl; 
       s << *myhit <<std::endl;
     }
 
@@ -82,10 +83,10 @@ namespace irene {
     s << " List of particles in the event"
       << "------------------------------------" << std::endl;
     TObjArray* particles = (TObjArray*)this->GetParticles();
+    s << "Size: " << particles->GetLast()+1 << std::endl;
     
-    for (unsigned int ipart=0; ipart<this->GetParticles()->GetLast()+1; ipart++){
+    for (unsigned int ipart=0; ipart<particles->GetLast()+1; ipart++){
       irene::Particle* mypart = (irene::Particle*)particles->At(ipart);
-      // Particle& p = *this->true_particles()[ipart];
       s << *mypart <<std::endl;
     }    
   

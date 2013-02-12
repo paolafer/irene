@@ -1,5 +1,6 @@
 #include "Event.h"
 #include "LightHit.h"
+#include "IonizationHit.h"
 #include "Particle.h"
 
 #include <TObjArray.h>

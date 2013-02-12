@@ -1,15 +1,12 @@
 #ifndef __EVENT_H__
 #define __EVENT_H__
 
-#include "LightHit.h"
-#include "IonizationHit.h"
-#include "Particle.h"
-
 #include <iostream>
 #include <TObject.h>
 
-/*No forward declarations of classes to be streamed
-  allowed here --- understand why*/
+namespace irene {class LightHit;}
+namespace irene {class IonizationHit;}
+namespace irene {class Particle;}
 
 class TObjArray;
 

@@ -80,6 +80,7 @@ namespace irene {
 
     void AddDaughter(irene::Particle* daughter);
     
+    //   const TRefArray& GetDaughters() const;
     TRefArray& GetDaughters();
 
     void AddIoniHit(irene::IonizationHit* hit);

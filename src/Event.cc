@@ -37,11 +37,6 @@ namespace irene {
     _particles->AddLast(particle);
   }
 
-  void Event::RemoveParticle(irene::Particle* particle)
-  {
-    _particles->Remove(particle);
-  }
-
   void Event::Clear()
   {
     _light_hits->Delete();

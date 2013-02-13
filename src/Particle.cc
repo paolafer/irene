@@ -13,9 +13,6 @@ namespace irene {
 			 _mass(0), _charge(0),
 			 _lifetime(0), _track_length(0)
   {
-    // _mother = new TRef;
-    // _daughters = new TRefArray();
-    //  _ionization_hits = new TRefArray();
     _ionization_hits = 0;
     _daughters = 0;
     _mother = 0;
@@ -37,17 +34,18 @@ namespace irene {
     SetName(pdg_code);
   }
 
-  Particle::~Particle()
-  {
-    _ionization_hits.Delete();
-    // delete _mother;
-    _daughters.Delete();
-  }
-
   Particle::Particle(std::string name)
   {
     SetParticleName(name);
   }
+
+  Particle::~Particle()
+  {
+    _ionization_hits.Delete();
+    _daughters.Delete();
+  }
+
+ 
 
   void Particle::SetInitialVertex(const double x, const double y,
 				  const double z, const double t) 

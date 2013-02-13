@@ -35,9 +35,9 @@ namespace irene {
     const TObjArray* GetIonizationHits() const;
 
     void AddParticle(irene::Particle* particle);
-    /* not constant because I want to be able to remove items */
-    TObjArray* GetParticles() const; 
-    void RemoveParticle(irene::Particle* particle);
+ 
+    const TObjArray* GetParticles() const; 
+    TObjArray* GetParticles(); 
 
     void SetID(const int& id); 
     const int GetID() const;
@@ -53,7 +53,8 @@ namespace irene {
   // INLINE methods
   inline const TObjArray* Event::GetLightHits() const {return _light_hits;}
   inline const TObjArray* Event::GetIonizationHits() const {return _ionization_hits;}
-  inline TObjArray* Event::GetParticles() const {return _particles;}
+  inline const TObjArray* Event::GetParticles() const {return _particles;}
+  inline TObjArray* Event::GetParticles() {return _particles;}
   inline void Event::SetID(const int& id) {_eventID = id;}
   inline const int Event::GetID() const {return _eventID;}  
 }

@@ -31,6 +31,15 @@ SRCDIR = []
 
 
 ## Some useful functions
+
+def filtered_glob(env, pattern, omit=[],
+  ondisk=True, source=False, strings=False):
+    return filter(
+      lambda f: os.path.basename(f.path) not in omit,
+      env.Glob(pattern))
+
+
+
 def Abort(message):
     """Outputs a message before exiting the script with an error."""
     print 'scons: Build aborted.'
@@ -43,7 +52,7 @@ def rootcint(target, source, env):
     dictname = target[0]
     headers = ""
     for f in source:
-        headers += str(f) + " "
+        headers += str(f) + " " 
 
     command = "rootcint -f %s -c -p %s" %(dictname, headers)
     ok = os.system(command)
@@ -116,6 +125,7 @@ vars.AddVariables(
 ## Create a construction environment adding the build vars and
 ## propagating the user's external environment
 env = Environment(variables=vars, ENV=os.environ)
+env.AddMethod(filtered_glob, "FilteredGlob");
 
 ## If the LIBPATH buildvar is not defined, the configure step has
 ## not been run yet
@@ -158,12 +168,12 @@ env['CXXCOMSTR']  = "Compiling $SOURCE"
 env['LINKCOMSTR'] = "Linking $TARGET"
 env['CPPPATH'] += ['src']
 
-headers = Glob('src/*.h')
+headers = env.FilteredGlob('src/*.h', ['LinkDef.h'])
 
 ## Make a builder for ROOTCINT
 bld = Builder(action = rootcint)
 env.Append(BUILDERS = {'Rootcint' : bld}) 
-env.Rootcint('ireneDict.cxx',['src/LightHit.h', 'src/IonizationHit.h', 'src/Event.h', 'src/Particle.h', 'src/LinkDef.h'])
+env.Rootcint('ireneDict.cxx',headers+['src/LinkDef.h'])
 #env.Rootcint('ireneDict.cxx', headers)
 
 sourcefiles = Glob('src/*.cc')  
@@ -182,10 +192,10 @@ env.SharedLibrary('lib/irene', ['ireneDict.cxx']+sourcefiles)
 
 #print "After deleting"
 #for item in headers:
-#    print item
+#    print item 
 
-header_install = env.Install('include/irene', ['src/LightHit.h', 'src/IonizationHit.h', 'src/Particle.h', 'src/Event.h', 'src/Service.h', 'src/Units.h', 'src/RootWriter.h'])
+env.Install(headers)
 #header_install = env.Install('include', headers)
-env.Alias("install", header_install)
+
 
 

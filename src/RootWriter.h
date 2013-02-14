@@ -1,3 +1,14 @@
+// ----------------------------------------------------------------------------
+///  \file   RootWriter.h
+///  \brief  Class to write events to a ROOT file, inside a Tree .
+///
+///  \author   <paola.ferrario@ific.uv.es>
+///  \date     14 Feb 2013
+///  \version  $Id$
+///
+///  Copyright (c) 2013 NEXT Collaboration
+// ----------------------------------------------------------------------------
+
 #ifndef __ROOTWRITER__
 #define __ROOTWRITER__
 

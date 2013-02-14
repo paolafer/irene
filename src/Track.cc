@@ -8,24 +8,20 @@
 //  Copyright (c) 2013 NEXT Collaboration
 // ---------------------------------------------------------------------------- 
 
-#include "Service.h"
+#include "Track.h"
 
 using namespace irene;
 
+ClassImp(Track)
+
 namespace irene {
 
-  Service* Service::_s_instance = 0;
-
-  Service* Service::GetInstance()
+  Track::Track()
   {
-    if (!_s_instance) 
-      _s_instance = new Service();
-    return _s_instance;
   }
 
-  Service::Service()
+  Track::~Track()
   {
-   _root_writer = RootWriter();
   }
 
 }

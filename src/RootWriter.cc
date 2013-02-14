@@ -1,3 +1,13 @@
+
+// ----------------------------------------------------------------------------
+//  $Id$
+//
+//  Author:  <paola.ferrario@ific.uv.es>
+//  Created: 14 Feb 2013
+//  
+//  Copyright (c) 2013 NEXT Collaboration
+// ---------------------------------------------------------------------------- 
+
 #include "RootWriter.h"
 
 using namespace irene;

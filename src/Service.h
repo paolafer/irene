@@ -1,3 +1,14 @@
+// ----------------------------------------------------------------------------
+///  \file   Service.h
+///  \brief  Class which provides access to the current event class.
+///
+///  \author   <paola.ferrario@ific.uv.es>
+///  \date     14 Feb 2013
+///  \version  $Id$
+///
+///  Copyright (c) 2013 NEXT Collaboration
+// ----------------------------------------------------------------------------
+
 #ifndef __SERVICE__
 #define __SERVICE__
 
@@ -23,8 +34,6 @@ namespace irene {
 
     irene::Event _event;
     irene::RootWriter _root_writer;
-
-    //    ClassDef(Service,1);
 
   };
 

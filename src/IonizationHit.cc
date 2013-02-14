@@ -1,3 +1,12 @@
+// ----------------------------------------------------------------------------
+//  $Id$
+//
+//  Author:  <paola.ferrario@ific.uv.es>
+//  Created: 14 Feb 2013
+//  
+//  Copyright (c) 2013 NEXT Collaboration
+// ---------------------------------------------------------------------------- 
+
 #include "IonizationHit.h"
 #include <iomanip>
 
@@ -32,7 +41,7 @@ namespace irene {
 
   void IonizationHit::Info(ostream& s) const
   {
-    s << std::endl;  
+    // s << std::endl;  
     s << _detector_name << " hit " << std::endl;
     s  << " x (mm)    y (mm)    z (mm)    " << std::endl;
     s << std::setw(5) << _space_time.X() <<"     " 

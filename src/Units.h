@@ -1,3 +1,14 @@
+// ----------------------------------------------------------------------------
+///  \file   Units.h
+///  \brief  Useful measurement units
+///
+///  \author   <paola.ferrario@ific.uv.es>
+///  \date     14 Feb 2013
+///  \version  $Id$
+///
+///  Copyright (c) 2013 NEXT Collaboration
+// ----------------------------------------------------------------------------
+
 #ifndef __UNITS__
 #define __UNITS__
 

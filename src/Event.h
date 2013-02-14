@@ -1,10 +1,21 @@
+// ----------------------------------------------------------------------------
+///  \file   Event.h
+///  \brief  Fundamental class which contains all the information of the event
+///
+///  \author   <paola.ferrario@ific.uv.es>
+///  \date     14 Feb 2013
+///  \version  $Id$
+///
+///  Copyright (c) 2013 NEXT Collaboration
+// ----------------------------------------------------------------------------
+
 #ifndef __EVENT_H__
 #define __EVENT_H__
 
 #include <iostream>
 #include <TObject.h>
 
-namespace irene {class LightHit;}
+namespace irene {class SensorHit;}
 namespace irene {class IonizationHit;}
 namespace irene {class Particle;}
 
@@ -28,8 +39,8 @@ namespace irene {
   
 
   public:
-    void AddLightHit(irene::LightHit* hit);
-    const TObjArray* GetLightHits() const;
+    void AddSensorHit(irene::SensorHit* hit);
+    const TObjArray* GetSensorHits() const;
 
     void AddIonizationHit(irene::IonizationHit* hit);
     const TObjArray* GetIonizationHits() const;
@@ -51,7 +62,7 @@ namespace irene {
   };
 
   // INLINE methods
-  inline const TObjArray* Event::GetLightHits() const {return _light_hits;}
+  inline const TObjArray* Event::GetSensorHits() const {return _light_hits;}
   inline const TObjArray* Event::GetIonizationHits() const {return _ionization_hits;}
   inline const TObjArray* Event::GetParticles() const {return _particles;}
   inline TObjArray* Event::GetParticles() {return _particles;}

@@ -1,3 +1,13 @@
+
+// ----------------------------------------------------------------------------
+//  $Id$
+//
+//  Author:  <paola.ferrario@ific.uv.es>
+//  Created: 14 Feb 2013
+//  
+//  Copyright (c) 2013 NEXT Collaboration
+// ---------------------------------------------------------------------------- 
+
 #include "Particle.h"
 #include "Units.h"
 #include "IonizationHit.h"
@@ -244,9 +254,6 @@ namespace irene {
     s << "G4TrackID = " << _G4TrackID << std::endl;
     s << "track length = " << _track_length << std::endl;
 
-     s << " List of additional properties "
-       << "-----------------------------" << std::endl;  
-
     if (_primary) {
       s << "particle is primary " << std::endl;
     } else {
@@ -261,12 +268,17 @@ namespace irene {
       }
     }
 
-    s << " List of secondary particles "
-      << "-----------------------------" << std::endl;
-    std::map<std::string, double>::const_iterator it;
+     s << " List of additional properties "
+       << "-----------------------------" << std::endl;  
+     std::map<std::string, double>::const_iterator it;
     for (it=_properties.begin(); it!=_properties.end(); ++it) {
       s << it->first << ": " << it->second << std::endl;
     }
+
+    
+
+    s << " List of secondary particles "
+      << "-----------------------------" << std::endl;
  
     for (int i=0; i<_daughters.GetLast()+1; ++i){
       Particle* p = (Particle*)_daughters.At(i);

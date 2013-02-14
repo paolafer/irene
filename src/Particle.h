@@ -1,3 +1,14 @@
+// ----------------------------------------------------------------------------
+///  \file   Particle.h
+///  \brief  A class that describes a particle with all its properties.
+///
+///  \author   <paola.ferrario@ific.uv.es>
+///  \date     14 Feb 2013
+///  \version  $Id$
+///
+///  Copyright (c) 2013 NEXT Collaboration
+// ----------------------------------------------------------------------------
+
 #ifndef __PARTICLE__
 #define __PARTICLE__
 

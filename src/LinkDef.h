@@ -6,8 +6,9 @@
 
 #pragma link C++ namespace irene+;
 #pragma link C++ class irene::IonizationHit+;
+#pragma link C++ class irene::Track+;
 #pragma link C++ class irene::Particle+;
-#pragma link C++ class irene::LightHit+;
+#pragma link C++ class irene::SensorHit+;
 #pragma link C++ class irene::Event+;
 
 #endif

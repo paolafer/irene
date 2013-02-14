@@ -1,5 +1,15 @@
+
+// ----------------------------------------------------------------------------
+//  $Id$
+//
+//  Author:  <paola.ferrario@ific.uv.es>
+//  Created: 14 Feb 2013
+//  
+//  Copyright (c) 2013 NEXT Collaboration
+// ---------------------------------------------------------------------------- 
+
 #include "Event.h"
-#include "LightHit.h"
+#include "SensorHit.h"
 #include "IonizationHit.h"
 #include "Particle.h"
 
@@ -22,7 +32,7 @@ namespace irene {
     Clear();
   }
 
-  void Event::AddLightHit(irene::LightHit* hit)
+  void Event::AddSensorHit(irene::SensorHit* hit)
   {
     _light_hits->AddLast(hit);
   }
@@ -48,26 +58,31 @@ namespace irene {
   void Event::Info(ostream& s) const
   {
     s << std::endl;    
-    s << " event number = " << this->GetID() << std::endl;
+    s << "event number = " << this->GetID() << std::endl;
     
-    s << " Event has " << this->GetIonizationHits()->GetLast()+1 << " ionization hits"
+    s << "event has " << this->GetIonizationHits()->GetLast()+1 << " ionization hits"
       << std::endl;
-    s << " Event has " << this->GetLightHits()->GetLast()+1 << " light hits"
+    s << "event has " << this->GetSensorHits()->GetLast()+1 << " light hits"
       << std::endl;
-    s << " Event has " << this->GetParticles()->GetLast()+1 << " particles"
+    s << "event has " << this->GetParticles()->GetLast()+1 << " particles"
       << std::endl;  
 
+    s << std::endl;  
     s << " List of light hits in the event"
       << "------------------------------------" << std::endl;
-    TObjArray* lighthits = (TObjArray*)this->GetLightHits();
-    
+    s << std::endl;   
+
+    TObjArray* lighthits = (TObjArray*)this->GetSensorHits();
+     
     for (unsigned int ihit=0; ihit<lighthits->GetLast()+1; ++ihit) {
-      irene::LightHit* myhit = (irene::LightHit*)lighthits->At(ihit);
+      irene::SensorHit* myhit = (irene::SensorHit*)lighthits->At(ihit);
       s << *myhit <<std::endl;
     }
   
     s << " List of ionization hits in the event"
       << "------------------------------------" << std::endl;
+    s << std::endl;   
+
     TObjArray* ionihits = (TObjArray*)this->GetIonizationHits();
     
     for (unsigned int ihit=0; ihit<ionihits->GetLast()+1; ++ihit) {
@@ -79,7 +94,6 @@ namespace irene {
     s << " List of particles in the event"
       << "------------------------------------" << std::endl;
     TObjArray* particles = (TObjArray*)this->GetParticles();
-    s << "Size: " << particles->GetLast()+1 << std::endl;
     
     for (unsigned int ipart=0; ipart<particles->GetLast()+1; ipart++){
       irene::Particle* mypart = (irene::Particle*)particles->At(ipart);

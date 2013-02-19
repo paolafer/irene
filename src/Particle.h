@@ -107,8 +107,8 @@ namespace irene {
     void SetName(const int& code);
     const std::string Name() const;
 
-    void SetOriginVolume(const std::string& vol);
-    const std::string GetOriginVolume() const;
+    void SetInitialVolume(const std::string& vol);
+    const std::string GetInitialVolume() const;
 
     void SetDecayVolume(const std::string& vol);
     const std::string GetDecayVolume() const;
@@ -145,8 +145,8 @@ namespace irene {
   inline void Particle::SetTrackLength(const double& length) {_track_length = length;}
   inline const double Particle::GetTrackLength() const {return _track_length;}
   inline const std::string Particle::Name() const {return _name;}
-  inline void Particle::SetOriginVolume(const std::string& vol) {_origin_volume = vol;}
-  inline const std::string Particle::GetOriginVolume() const {return _origin_volume;}
+  inline void Particle::SetInitialVolume(const std::string& vol) {_origin_volume = vol;}
+  inline const std::string Particle::GetInitialVolume() const {return _origin_volume;}
   inline void Particle::SetDecayVolume(const std::string& vol) {_decay_volume = vol;}
   inline const std::string Particle::GetDecayVolume() const {return _decay_volume;}
   inline void Particle::SetCreatorProcess(const std::string& process) {_creator_process = process;}

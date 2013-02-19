@@ -23,22 +23,26 @@ class TObjArray;
 
 namespace irene {
 
+  /// Class which contains all the information of the event, namely
+  /// the true hits, the sensor response and the particle content
   class Event : public TObject {
     
   public: 
+    /// Constructor
     Event();
-
+    /// Destructor
     ~Event();
 
   private:
 
-    TObjArray* _sensor_hits;
-    TObjArray* _tracks;
-    TObjArray* _particles;
-    int _eventID;
+    TObjArray* _sensor_hits; ///< sensor response
+    TObjArray* _tracks; ///< true hits of particles
+    TObjArray* _particles; ///< particles
+    int _eventID; ///< unique identificative number
   
 
   public:
+
     void AddSensorHit(irene::SensorHit* hit);
     const TObjArray* GetSensorHits() const;
 
@@ -68,7 +72,8 @@ namespace irene {
   inline TObjArray* Event::GetParticles() {return _particles;}
   inline void Event::SetID(const int& id) {_eventID = id;}
   inline const int Event::GetID() const {return _eventID;}  
-}
+
+} // end namespace irene
 
 ostream& operator << (ostream& s, const irene::Event& ev);
 

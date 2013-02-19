@@ -5,7 +5,6 @@
 #pragma link off all functions;
 
 #pragma link C++ namespace irene+;
-#pragma link C++ class irene::IonizationHit+;
 #pragma link C++ class irene::Track+;
 #pragma link C++ class irene::Particle+;
 #pragma link C++ class irene::SensorHit+;

@@ -106,7 +106,7 @@ namespace irene {
   
   }
 
-} // namespace irene
+} // end namespace irene
 
 ostream& operator << (ostream& s, const irene::Event& ev) {
   ev.Info(s);

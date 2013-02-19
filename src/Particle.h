@@ -52,13 +52,12 @@ namespace irene {
     double _charge; ///< charge. It cannot be set, it is given through the name or the PDG code.
     double _lifetime; ///< life time. It cannot be set, it is given through the name or the PDG code.
     double _track_length; ///< length of the associated track
-    std::string _name;
-    std::string _origin_volume;
-    std::string _decay_volume;
-    std::string _creator_process;
+    std::string _name; ///< name
+    std::string _origin_volume; ///< name of the volume where the particle is created
+    std::string _decay_volume; ///< name of the volume where the particle dies
+    std::string _creator_process; ///< name of the process that creates the particle
     // temporary, needed for ionization clusters
-    std::map<std::string, double> _properties;
-    
+    std::map<std::string, double> _properties; ///< map of useful properties for ionization clusters
     
 
   public:
@@ -130,8 +129,6 @@ namespace irene {
 
     void Info(ostream& s) const;
     
-    
-
     ClassDef(Particle,1);
 
   };

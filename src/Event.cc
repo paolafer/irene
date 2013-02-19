@@ -10,7 +10,7 @@
 
 #include "Event.h"
 #include "SensorHit.h"
-#include "IonizationHit.h"
+#include "Track.h"
 #include "Particle.h"
 
 #include <TObjArray.h>
@@ -23,8 +23,8 @@ namespace irene {
 
   Event::Event() : _eventID(0)
   {
-    _light_hits = new TObjArray();
-    _ionization_hits = new TObjArray();
+    _sensor_hits = new TObjArray();
+    _tracks = new TObjArray();
     _particles = new TObjArray();
   }
 
@@ -34,12 +34,12 @@ namespace irene {
 
   void Event::AddSensorHit(irene::SensorHit* hit)
   {
-    _light_hits->AddLast(hit);
+    _sensor_hits->AddLast(hit);
   }
 
-  void Event::AddIonizationHit(irene::IonizationHit* hit)
+  void Event::AddTrack(irene::Track* track)
   {
-    _ionization_hits->AddLast(hit);
+    _tracks->AddLast(track);
   }
 
    void Event::AddParticle(irene::Particle* particle)
@@ -49,8 +49,8 @@ namespace irene {
 
   void Event::Clear()
   {
-    _light_hits->Delete();
-    _ionization_hits->Delete();
+    _sensor_hits->Delete();
+    _tracks->Delete();
     _particles->Delete();
     _eventID = 0;
   }
@@ -59,35 +59,39 @@ namespace irene {
   {
     s << std::endl;    
     s << "event number = " << this->GetID() << std::endl;
-    
-    s << "event has " << this->GetIonizationHits()->GetLast()+1 << " ionization hits"
+
+    TObjArray* tracks = (TObjArray*)this->GetTracks();
+    int tothits=0;
+    for (unsigned int itrack=0; itrack<tracks->GetLast()+1; ++itrack) {
+      irene::Track* mytrack = (irene::Track*)tracks->At(itrack);     
+      tothits = tothits +  mytrack->GetHits().size();
+    }
+    s << "event has " << tothits << " true hits"
       << std::endl;
-    s << "event has " << this->GetSensorHits()->GetLast()+1 << " light hits"
+    s << "event has " << this->GetSensorHits()->GetLast()+1 << " sensor hits"
       << std::endl;
     s << "event has " << this->GetParticles()->GetLast()+1 << " particles"
       << std::endl;  
 
     s << std::endl;  
-    s << " List of light hits in the event"
+    s << " List of sensor hits in the event"
       << "------------------------------------" << std::endl;
     s << std::endl;   
 
-    TObjArray* lighthits = (TObjArray*)this->GetSensorHits();
+    TObjArray* sensorhits = (TObjArray*)this->GetSensorHits();
      
-    for (unsigned int ihit=0; ihit<lighthits->GetLast()+1; ++ihit) {
-      irene::SensorHit* myhit = (irene::SensorHit*)lighthits->At(ihit);
+    for (unsigned int ihit=0; ihit<sensorhits->GetLast()+1; ++ihit) {
+      irene::SensorHit* myhit = (irene::SensorHit*)sensorhits->At(ihit);
       s << *myhit <<std::endl;
     }
   
-    s << " List of ionization hits in the event"
+    s << " List of true hits in the event"
       << "------------------------------------" << std::endl;
     s << std::endl;   
-
-    TObjArray* ionihits = (TObjArray*)this->GetIonizationHits();
     
-    for (unsigned int ihit=0; ihit<ionihits->GetLast()+1; ++ihit) {
-      irene::IonizationHit* myhit = (irene::IonizationHit*)ionihits->At(ihit);
-      s << *myhit <<std::endl;
+    for (unsigned int itrack=0; itrack<tracks->GetLast()+1; ++itrack) {
+      irene::Track* mytrack = (irene::Track*)tracks->At(itrack);
+      s << *mytrack <<std::endl;
     }
 
 

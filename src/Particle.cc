@@ -10,7 +10,8 @@
 
 #include "Particle.h"
 #include "Units.h"
-#include "IonizationHit.h"
+#include "Track.h"
+//#include "IonizationHit.h"
 
 using namespace irene;
 
@@ -23,7 +24,7 @@ namespace irene {
 			 _mass(0), _charge(0),
 			 _lifetime(0), _track_length(0)
   {
-    _ionization_hits = 0;
+    _track = 0;
     _daughters = 0;
     _mother = 0;
     _name = "unknown";
@@ -51,7 +52,7 @@ namespace irene {
 
   Particle::~Particle()
   {
-    _ionization_hits.Delete();
+    //  _ionization_hits.Delete();
     _daughters.Delete();
   }
 
@@ -114,6 +115,17 @@ namespace irene {
     return dynamic_cast<irene::Particle*> (_mother.GetObject());
   }
 
+  void Particle::SetTrack(const irene::Track* track) 
+  {
+    _track = (irene::Track*)track;
+  }
+
+  const Track* Particle::GetTrack() const
+  {
+    return dynamic_cast<irene::Track*> (_track.GetObject());
+  }
+
+
   void Particle::AddDaughter(Particle* daughter)
   {
     _daughters.Add(daughter);
@@ -124,15 +136,20 @@ namespace irene {
     return _daughters;
   }
 
-  void Particle::AddIoniHit(IonizationHit* hit)
-  {
-    _ionization_hits.Add(hit);
+  const TRefArray Particle::GetDaughters() const
+  {   
+    return _daughters;
   }
 
-  const TRefArray& Particle::GetIoniHits() const
-  {
-    return _ionization_hits;
-  }
+  // void Particle::AddIoniHit(IonizationHit* hit)
+  // {
+  //   _ionization_hits.Add(hit);
+  // }
+
+  // const TRefArray& Particle::GetIoniHits() const
+  // {
+  //   return _ionization_hits;
+  // }
 
   void Particle::SetParameters(double m, double q, double l)
   {
@@ -297,13 +314,14 @@ namespace irene {
     }
     
 
-    s << "List of ionization hits of the particle"
+    s << "List of true hits of the particle"
       << " ----------------------" << std::endl;
 
-    for (int i=0; i<_ionization_hits.GetLast()+1; ++i) {
-      IonizationHit* ihit = (IonizationHit*)_ionization_hits.At(i);
-      s << *ihit << std::endl;
-    }
+    s << *(this->GetTrack()) << std::endl;
+    // for (int i=0; i<_ionization_hits.GetLast()+1; ++i) {
+    //   IonizationHit* ihit = (IonizationHit*)_ionization_hits.At(i);
+    //   s << *ihit << std::endl;
+    // }
 
 
   }

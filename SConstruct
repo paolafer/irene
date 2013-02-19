@@ -194,7 +194,8 @@ env.SharedLibrary('lib/irene', ['ireneDict.cxx']+sourcefiles)
 #for item in headers:
 #    print item 
 
-env.Install(headers)
+env.Install('include/irene', headers)
+
 #header_install = env.Install('include', headers)
 
 

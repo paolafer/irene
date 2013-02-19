@@ -16,7 +16,7 @@
 #include <TObject.h>
 
 namespace irene {class SensorHit;}
-namespace irene {class IonizationHit;}
+namespace irene {class Track;}
 namespace irene {class Particle;}
 
 class TObjArray;
@@ -32,8 +32,8 @@ namespace irene {
 
   private:
 
-    TObjArray* _light_hits;
-    TObjArray* _ionization_hits;
+    TObjArray* _sensor_hits;
+    TObjArray* _tracks;
     TObjArray* _particles;
     int _eventID;
   
@@ -42,8 +42,8 @@ namespace irene {
     void AddSensorHit(irene::SensorHit* hit);
     const TObjArray* GetSensorHits() const;
 
-    void AddIonizationHit(irene::IonizationHit* hit);
-    const TObjArray* GetIonizationHits() const;
+    void AddTrack(irene::Track* track);
+    const TObjArray* GetTracks() const;
 
     void AddParticle(irene::Particle* particle);
  
@@ -62,8 +62,8 @@ namespace irene {
   };
 
   // INLINE methods
-  inline const TObjArray* Event::GetSensorHits() const {return _light_hits;}
-  inline const TObjArray* Event::GetIonizationHits() const {return _ionization_hits;}
+  inline const TObjArray* Event::GetSensorHits() const {return _sensor_hits;}
+  inline const TObjArray* Event::GetTracks() const {return _tracks;}
   inline const TObjArray* Event::GetParticles() const {return _particles;}
   inline TObjArray* Event::GetParticles() {return _particles;}
   inline void Event::SetID(const int& id) {_eventID = id;}

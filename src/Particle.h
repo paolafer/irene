@@ -20,7 +20,8 @@
 #include <TRef.h>
 #include <TRefArray.h>
 
-namespace irene {class IonizationHit;}
+//namespace irene {class IonizationHit;}
+namespace irene {class Track;}
 
 namespace irene {
 
@@ -45,8 +46,9 @@ namespace irene {
     bool _primary;
     bool _has_mother;
     TRef _mother;
+    TRef _track;
     TRefArray _daughters;
-    TRefArray _ionization_hits;
+    //   TRefArray _ionization_hits;
     double _mass;
     double _charge;
     double _lifetime;
@@ -89,13 +91,16 @@ namespace irene {
     void SetMother(const irene::Particle* mother);
     const irene::Particle* GetMother() const;
 
+    void SetTrack(const irene::Track* track);
+    const irene::Track* GetTrack() const;
+
     void AddDaughter(irene::Particle* daughter);
     
-    //   const TRefArray& GetDaughters() const;
+    const TRefArray GetDaughters() const;
     TRefArray& GetDaughters();
 
-    void AddIoniHit(irene::IonizationHit* hit);
-    const TRefArray& GetIoniHits() const;
+    /* void AddIoniHit(irene::IonizationHit* hit); */
+    /* const TRefArray& GetIoniHits() const; */
  
     void SetParameters(double m, double q, double l);
 

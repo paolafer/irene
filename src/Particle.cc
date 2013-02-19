@@ -22,7 +22,7 @@ namespace irene {
   Particle::Particle() : _PDGcode(0), _G4TrackID(0),
 			 _primary(false), _has_mother(false),
 			 _mass(0), _charge(0),
-			 _lifetime(0), _track_length(0)
+			 _lifetime(0)
   {
     _track = 0;
     _daughters = 0;
@@ -121,6 +121,11 @@ namespace irene {
   }
 
   const Track* Particle::GetTrack() const
+  {
+    return dynamic_cast<irene::Track*> (_track.GetObject());
+  }
+
+  Track* Particle::GetTrack()
   {
     return dynamic_cast<irene::Track*> (_track.GetObject());
   }
@@ -269,7 +274,7 @@ namespace irene {
     s << "origin volume = " << _origin_volume << std::endl;
     s << "decay volume = " << _decay_volume << std::endl;
     s << "G4TrackID = " << _G4TrackID << std::endl;
-    s << "track length = " << _track_length << std::endl;
+    //    s << "track length = " << _track_length << std::endl;
 
     if (_primary) {
       s << "particle is primary " << std::endl;
@@ -313,18 +318,14 @@ namespace irene {
       
     }
     
-
+    s << std::endl;
     s << "List of true hits of the particle"
       << " ----------------------" << std::endl;
     
     if ((this->GetTrack())) {
       s << *(this->GetTrack()) << std::endl;
+      s << "Track length = " << this->GetTrack()->GetLength() << std::endl;
     }
-    // for (int i=0; i<_ionization_hits.GetLast()+1; ++i) {
-    //   IonizationHit* ihit = (IonizationHit*)_ionization_hits.At(i);
-    //   s << *ihit << std::endl;
-    // }
-
 
   }
     

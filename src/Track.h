@@ -35,6 +35,7 @@ namespace irene {
     std::vector<std::pair<TLorentzVector,double>*> _hits;
     TRef _particle;
     int _id;
+    double _track_length; ///< total length
 
   public:
     void AddHit(const double& x, const double& y, const double& z, 
@@ -44,6 +45,8 @@ namespace irene {
     void SetParticle(irene::Particle* particle);
     void SetID(const int& id);
     const int GetID() const;
+    void SetLength(const double& length);
+    const double GetLength() const;
     
     void Info(ostream& s) const;
     
@@ -55,6 +58,8 @@ namespace irene {
   inline std::vector<std::pair<TLorentzVector,double>*> Track::GetHits() {return _hits;}
   inline void Track::SetID(const int& id) {_id = id;}
   inline const int Track::GetID() const {return _id;}
+  inline void Track::SetLength(const double& length) {_track_length = length;}
+  inline const double Track::GetLength() const {return _track_length;}
 
 } // namespace irene
 

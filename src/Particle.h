@@ -20,39 +20,38 @@
 #include <TRef.h>
 #include <TRefArray.h>
 
-//namespace irene {class IonizationHit;}
 namespace irene {class Track;}
 
 namespace irene {
 
+  /// This class describes a simulated particle with its properties
   class Particle : public TObject
   {
 
   public:
-    // constructor
+    /// Constructors
     Particle();
     Particle(std::string name);
     Particle(const int& pdg);
-    // destructor
+    /// Destructor
     ~Particle();
     
   private:
-    int _PDGcode;
-    TLorentzVector _initial_vertex;
-    TLorentzVector _decay_vertex;
-    TLorentzVector _initial_momentum;
-    TLorentzVector _decay_momentum;
-    int _G4TrackID;
-    bool _primary;
-    bool _has_mother;
-    TRef _mother;
-    TRef _track;
-    TRefArray _daughters;
-    //   TRefArray _ionization_hits;
-    double _mass;
-    double _charge;
-    double _lifetime;
-    double _track_length;
+    int _PDGcode; ///< PDG code of the particle
+    TLorentzVector _initial_vertex; ///< point and time of generation
+    TLorentzVector _decay_vertex; ///< point and time of death
+    TLorentzVector _initial_momentum; ///< initial momentum and energy
+    TLorentzVector _decay_momentum; ///< final momentum and energy
+    int _G4TrackID; ///< identification number coming from the Geant4 simulation
+    bool _primary; ///< true if the particle is the one directly generated in Geant4
+    bool _has_mother; ///< true if the particle comes from another particle through some process
+    TRef _mother; ///< reference to the mother particle
+    TRef _track; ///< reference to the track which contains the true hits of the particle
+    TRefArray _daughters; ///< array of references to the secondary particles
+    double _mass; ///< mass. It cannot be set, it is given through the name or the PDG code.
+    double _charge; ///< charge. It cannot be set, it is given through the name or the PDG code.
+    double _lifetime; ///< life time. It cannot be set, it is given through the name or the PDG code.
+    double _track_length; ///< length of the associated track
     std::string _name;
     std::string _origin_volume;
     std::string _decay_volume;
@@ -84,6 +83,9 @@ namespace irene {
 
     void SetG4TrackID(const int& trackID);
     const int GetG4TrackID() const;
+
+    void SetTrackLength(const double& length);
+    const double GetTrackLength() const;
     
     void SetPrimary(bool is_primary);
     const bool IsPrimary();
@@ -93,23 +95,18 @@ namespace irene {
 
     void SetTrack(const irene::Track* track);
     const irene::Track* GetTrack() const;
+    irene::Track* GetTrack();
 
     void AddDaughter(irene::Particle* daughter);
     
     const TRefArray GetDaughters() const;
     TRefArray& GetDaughters();
-
-    /* void AddIoniHit(irene::IonizationHit* hit); */
-    /* const TRefArray& GetIoniHits() const; */
  
     void SetParameters(double m, double q, double l);
 
     void SetParticleName(std::string name);
     void SetName(const int& code);
     const std::string Name() const;
-
-    void SetTrackLength(const double& length);
-    const double GetTrackLength() const;
 
     void SetOriginVolume(const std::string& vol);
     const std::string GetOriginVolume() const;
@@ -148,9 +145,9 @@ namespace irene {
   inline const TLorentzVector Particle::GetDecayMomentum() const {return _decay_momentum;}
   inline void Particle::SetG4TrackID(const int& trackID) {_G4TrackID = trackID;}
   inline const int Particle::GetG4TrackID() const {return _G4TrackID;}
-  inline const std::string Particle::Name() const {return _name;}
   inline void Particle::SetTrackLength(const double& length) {_track_length = length;}
   inline const double Particle::GetTrackLength() const {return _track_length;}
+  inline const std::string Particle::Name() const {return _name;}
   inline void Particle::SetOriginVolume(const std::string& vol) {_origin_volume = vol;}
   inline const std::string Particle::GetOriginVolume() const {return _origin_volume;}
   inline void Particle::SetDecayVolume(const std::string& vol) {_decay_volume = vol;}

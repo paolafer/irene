@@ -11,6 +11,7 @@
 #include "Track.h"
 #include "Particle.h"
 
+#include <iostream>
 #include <iomanip>
 
 using namespace irene;
@@ -26,21 +27,23 @@ namespace irene {
   }
 
   Track::~Track()
-  {
+  {  
     for (int i=0; i<_hits.size(); ++i) {
       delete _hits[i];
     }
   }
 
   void Track::AddHit(const double& x, const double& y, const double& z, 
-		const double& t, const double& energy)
+  		const double& t, const double& energy)
   {
     std::pair<TLorentzVector,double>* newhit = new std::pair<TLorentzVector,double>;
     newhit->first.SetXYZT(x,y,z,t);
     newhit->second = energy;
-
+    
     _hits.push_back(newhit);
+    
   }
+
 
   void Track::SetParticle(irene::Particle* particle) 
   {

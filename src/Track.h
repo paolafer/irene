@@ -40,6 +40,7 @@ namespace irene {
     void AddHit(const double& x, const double& y, const double& z, 
 		const double& t, const double& energy);
     std::vector<std::pair<TLorentzVector,double>*> GetHits();
+   
     void SetParticle(irene::Particle* particle);
     void SetID(const int& id);
     const int GetID() const;

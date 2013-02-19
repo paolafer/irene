@@ -316,8 +316,10 @@ namespace irene {
 
     s << "List of true hits of the particle"
       << " ----------------------" << std::endl;
-
-    s << *(this->GetTrack()) << std::endl;
+    
+    if ((this->GetTrack())) {
+      s << *(this->GetTrack()) << std::endl;
+    }
     // for (int i=0; i<_ionization_hits.GetLast()+1; ++i) {
     //   IonizationHit* ihit = (IonizationHit*)_ionization_hits.At(i);
     //   s << *ihit << std::endl;

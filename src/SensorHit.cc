@@ -35,9 +35,9 @@ namespace irene {
 
   void SensorHit::SetSample(const double& amp, 
 			   const double& time) {
-    std::pair<double, int> sample;
-    sample.first = time;
-    sample.second = amp;
+    std::pair<double, int>* sample = new std::pair<double, int>;
+    sample->first = time;
+    sample->second = amp;
     _waveform.push_back(sample);
   } 
   

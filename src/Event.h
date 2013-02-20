@@ -56,7 +56,7 @@ namespace irene {
     TObjArray* GetParticles(); 
 
     void SetID(const int& id); 
-    const int GetID() const;
+    int GetID() const;
 
     // This method returns an std::vector of pointers: ownership is users's
     const std::vector<std::pair<TLorentzVector,double>*> GetHits() const;
@@ -75,7 +75,7 @@ namespace irene {
   inline const TObjArray* Event::GetParticles() const {return _particles;}
   inline TObjArray* Event::GetParticles() {return _particles;}
   inline void Event::SetID(const int& id) {_eventID = id;}
-  inline const int Event::GetID() const {return _eventID;}  
+  inline int Event::GetID() const {return _eventID;}  
 
 } // end namespace irene
 

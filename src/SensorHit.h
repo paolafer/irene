@@ -44,19 +44,19 @@ namespace irene {
     const std::vector<std::pair<double, int> > GetWaveform() const;
  
     void SetAmplitude(const double& amplitude);   
-    const double GetAmplitude() const; 
+    double GetAmplitude() const; 
 
     void SetID(const int& id);
-    const int GetID() const;
+    int GetID() const;
 
     void SetBinWidth(const double& width);
-    double const GetBinWidth();
+    double GetBinWidth() const;
     
     void SetPosition(const double& x, const double& y, const double& z);
-    const TVector3 GetPosition() const;
+    TVector3 GetPosition() const;
 
     void SetDetectorName(const std::string);
-    const std::string GetDetectorName() const;
+    std::string GetDetectorName() const;
 
     void Info(ostream& s) const;
     
@@ -69,15 +69,15 @@ namespace irene {
   
   inline const std::vector<std::pair<double, int> > SensorHit::GetWaveform() const {return _waveform;}
   inline void SensorHit::SetAmplitude(const double& amplitude) {_amplitude = amplitude;}
-  inline const double SensorHit::GetAmplitude() const {return _amplitude;}
+  inline double SensorHit::GetAmplitude() const {return _amplitude;}
   inline void SensorHit::SetID(const int& id) {_id = id;}
-  inline const int SensorHit::GetID() const {return _id;}
+  inline int SensorHit::GetID() const {return _id;}
   inline void SensorHit::SetBinWidth(const double& width) {_bin_width = width;}
-  inline const double SensorHit::GetBinWidth() {return _bin_width;}
+  inline double SensorHit::GetBinWidth() const {return _bin_width;}
   inline void SensorHit::SetPosition(const double& x, const double& y, const double& z) {_position.SetXYZ(x, y, z);}
-  inline const TVector3 SensorHit::GetPosition() const {return _position;}
+  inline TVector3 SensorHit::GetPosition() const {return _position;}
   inline void SensorHit::SetDetectorName(const std::string det_name) {_detector_name = det_name;}
-  inline const std::string SensorHit::GetDetectorName() const {return _detector_name;}
+  inline std::string SensorHit::GetDetectorName() const {return _detector_name;}
 
 }
 

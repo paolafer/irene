@@ -20,6 +20,7 @@ namespace irene {class Track;}
 namespace irene {class Particle;}
 
 class TObjArray;
+class TLorentzVector;
 
 namespace irene {
 
@@ -56,6 +57,9 @@ namespace irene {
 
     void SetID(const int& id); 
     const int GetID() const;
+
+    // This method returns an std::vector of pointers: ownership is users's
+    const std::vector<std::pair<TLorentzVector,double>*> GetHits() const;
 
     void Clear();
 

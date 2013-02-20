@@ -14,6 +14,7 @@
 #include "Particle.h"
 
 #include <TObjArray.h>
+#include <TLorentzVector.h>
 
 using namespace irene;
 
@@ -47,6 +48,20 @@ namespace irene {
     _particles->AddLast(particle);
   }
 
+  const std::vector<std::pair<TLorentzVector,double>*> Event::GetHits() const
+  {
+    std::vector<std::pair<TLorentzVector,double>*> evthits;
+    for (int itr=0; itr<GetTracks()->GetLast()+1; ++itr) {
+      irene::Track* mytrack = (irene::Track*)GetTracks()->At(itr);
+      for (int ihit=0; ihit<mytrack->GetHits().size(); ++ihit) {
+	std::pair<TLorentzVector,double>* myhit = new std::pair<TLorentzVector,double>;
+	myhit = (mytrack->GetHits())[ihit];
+	evthits.push_back(myhit);
+      }
+    }
+    return evthits;
+  }
+  
   void Event::Clear()
   {
     _sensor_hits->Delete();

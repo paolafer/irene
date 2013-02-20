@@ -11,7 +11,6 @@
 #include "Particle.h"
 #include "Units.h"
 #include "Track.h"
-//#include "IonizationHit.h"
 
 using namespace irene;
 
@@ -145,16 +144,6 @@ namespace irene {
   {   
     return _daughters;
   }
-
-  // void Particle::AddIoniHit(IonizationHit* hit)
-  // {
-  //   _ionization_hits.Add(hit);
-  // }
-
-  // const TRefArray& Particle::GetIoniHits() const
-  // {
-  //   return _ionization_hits;
-  // }
 
   void Particle::SetParameters(double m, double q, double l)
   {

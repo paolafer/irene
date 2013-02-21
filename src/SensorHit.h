@@ -26,7 +26,7 @@ namespace irene {
     
     SensorHit(std::string det_name);
     // destructor
-    virtual ~SensorHit() {}
+    ~SensorHit();
     
   private:
     

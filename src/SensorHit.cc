@@ -31,7 +31,13 @@ namespace irene {
   {
     _detector_name = det_name;
   }
-  
+
+  SensorHit::~SensorHit() 
+  {
+    for (int i=0; i<_waveform.size(); ++i) {
+      delete _waveform[i];
+    }
+  }  
 
   void SensorHit::SetSample(const double& amp, 
 			   const double& time) {

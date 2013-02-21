@@ -51,7 +51,6 @@ namespace irene {
 
   Particle::~Particle()
   {
-    //  _ionization_hits.Delete();
     _daughters.Delete();
   }
 

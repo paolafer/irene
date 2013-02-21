@@ -30,7 +30,7 @@ namespace irene {
     
   private:
     
-    std::vector<std::pair<double, int>* > _waveform;   
+    std::vector<const std::pair<double, int>* > _waveform;   
     double _amplitude;
     int _id;
     double _bin_width;
@@ -41,7 +41,7 @@ namespace irene {
     
     void SetSample(const double& amp, const double& time);
     // This method returns an std::vector of pointers: ownership is users's
-    const std::vector<std::pair<double, int>* > GetWaveform() const;
+    std::vector<const std::pair<double, int>* > GetWaveform() const;
  
     void SetAmplitude(const double& amplitude);   
     double GetAmplitude() const; 
@@ -67,7 +67,7 @@ namespace irene {
   
   // IN-LINE FUNCTIONS
   
-  inline const std::vector<std::pair<double, int>* > SensorHit::GetWaveform() const {return _waveform;}
+  inline std::vector<const std::pair<double, int>* > SensorHit::GetWaveform() const {return _waveform;}
   inline void SensorHit::SetAmplitude(const double& amplitude) {_amplitude = amplitude;}
   inline double SensorHit::GetAmplitude() const {return _amplitude;}
   inline void SensorHit::SetID(const int& id) {_id = id;}

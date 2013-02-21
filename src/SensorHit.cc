@@ -18,32 +18,34 @@ ClassImp(SensorHit)
 
 namespace irene {
 
-  SensorHit::SensorHit() : _waveform(0),   
-			 _amplitude(0),
+  SensorHit::SensorHit() : _amplitude(0),
 			 _id(0),
 			 _bin_width(0)		      
   {
+    _waveform.clear();
     _detector_name = "unknown";
     _position.SetXYZ(0., 0., 0.);
   }
 
-  SensorHit::SensorHit(std::string det_name) 
+  SensorHit::SensorHit(std::string det_name) : _amplitude(0),
+					       _id(0),
+					       _bin_width(0)	
   {
+    _waveform.clear();
     _detector_name = det_name;
+     _position.SetXYZ(0., 0., 0.);
   }
 
   SensorHit::~SensorHit() 
   {
-    for (int i=0; i<_waveform.size(); ++i) {
-      delete _waveform[i];
-    }
+    
   }  
 
   void SensorHit::SetSample(const double& amp, 
 			   const double& time) {
-    std::pair<double, int>* sample = new std::pair<double, int>;
-    sample->first = time;
-    sample->second = amp;
+    std::pair<double, int> sample;
+    sample.first = time;
+    sample.second = amp;
     _waveform.push_back(sample);
   } 
   

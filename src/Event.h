@@ -58,8 +58,8 @@ namespace irene {
     void SetID(const int& id); 
     int GetID() const;
 
-    // This method returns an std::vector of pointers: ownership is users's
-    const std::vector<std::pair<TLorentzVector,double>*> GetHits() const;
+    // This method returns the true hits of every track in the event
+    const std::vector<std::pair<TLorentzVector,double> >& GetHits() const;
 
     void Clear();
 

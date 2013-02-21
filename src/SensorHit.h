@@ -40,7 +40,6 @@ namespace irene {
   public:
     
     void SetSample(const double& amp, const double& time);
-    // This method returns a reference to an std::vector
     const std::vector<std::pair<double,int> >& GetWaveform() const;
  
     void SetAmplitude(const double& amplitude);   

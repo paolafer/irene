@@ -21,24 +21,26 @@ namespace irene {
   class RootWriter {
 
   public:
+    /// Constructor
     RootWriter();
+    /// Destructor
     ~RootWriter() {}
 
   private:
-    TFile* _file;
-    TTree* _evtTree;
-    irene::Event* _event;
-    bool _isopen;
+    TFile* _file; ///< ROOT file where the output is written
+    TTree* _evtTree; ///< ROOT tree where the events are stored
+    Event* _event; ///< event to be stored
+    bool _isopen; ///< true is the file is already open
 
   public:
 
     void Open(const std::string filename, std::string option);
-    void Write(irene::Event& event);
+    void Write(Event& event);
     void Close();
     bool IsOpen();
 
   };
 
-}
+} // end namespace irene
 
 #endif

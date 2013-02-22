@@ -1,6 +1,6 @@
 // ----------------------------------------------------------------------------
 ///  \file   Service.h
-///  \brief  Class which provides access to the current event class.
+///  \brief  Class that provides access to the current event object.
 ///
 ///  \author   <paola.ferrario@ific.uv.es>
 ///  \date     14 Feb 2013
@@ -17,30 +17,32 @@
 
 namespace irene {
 
+  /// This class is a singleton, and provides access to the current event object
+  /// and to the class that writes the ROOT file
   class Service {
 
   private:
+    /// Constructor
     Service();
+    /// Destructor
     ~Service();
+
+  private:
+    static Service* _s_instance; ///< unique instance of the class
+    Event* _event; ///< event to be accessed
+    RootWriter _root_writer; ///< instance of the class that writes the ROOT file
     
   public:
     static Service* GetInstance();
-    Event& GetEvent();
+    Event* GetEvent();
     RootWriter& GetRootWriter();
-    
-    
-  private:
-    static Service* _s_instance;
-
-    irene::Event _event;
-    irene::RootWriter _root_writer;
 
   };
 
   // INLINE methods
-  inline irene::Event& Service::GetEvent() {return _event;}
-  inline irene::RootWriter& Service::GetRootWriter() {return _root_writer;}
+  inline Event* Service::GetEvent() {return _event;}
+  inline RootWriter& Service::GetRootWriter() {return _root_writer;}
 	  
-}
+} // end namespace irene
 
 #endif

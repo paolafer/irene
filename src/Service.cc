@@ -10,8 +10,6 @@
 
 #include "Service.h"
 
-using namespace irene;
-
 namespace irene {
 
   Service* Service::_s_instance = 0;
@@ -26,6 +24,12 @@ namespace irene {
   Service::Service()
   {
    _root_writer = RootWriter();
+   _event = new Event(0);
+  }
+
+  Service::~Service()
+  {
+    //delete _event;
   }
 
 }

@@ -12,9 +12,7 @@
 
 #include <iomanip>
 
-using namespace irene; 
-
-ClassImp(SensorHit)
+ClassImp(irene::SensorHit)
 
 namespace irene {
 

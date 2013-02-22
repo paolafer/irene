@@ -12,9 +12,7 @@
 #include "Units.h"
 #include "Track.h"
 
-using namespace irene;
-
-ClassImp(Particle);
+ClassImp(irene::Particle);
 
 namespace irene {
 
@@ -104,28 +102,28 @@ namespace irene {
   
   void Particle::SetMother(const irene::Particle* mother) 
   {
-    _mother = (irene::Particle*)mother;
+    _mother = (Particle*)mother;
     _has_mother = true;
   }
 
   const Particle* Particle::GetMother() const
   {
-    return dynamic_cast<irene::Particle*> (_mother.GetObject());
+    return dynamic_cast<Particle*> (_mother.GetObject());
   }
 
-  void Particle::SetTrack(const irene::Track* track) 
+  void Particle::SetTrack(const Track* track) 
   {
-    _track = (irene::Track*)track;
+    _track = (Track*)track;
   }
 
   const Track* Particle::GetTrack() const
   {
-    return dynamic_cast<irene::Track*> (_track.GetObject());
+    return dynamic_cast<Track*> (_track.GetObject());
   }
 
   Track* Particle::GetTrack()
   {
-    return dynamic_cast<irene::Track*> (_track.GetObject());
+    return dynamic_cast<Track*> (_track.GetObject());
   }
 
 

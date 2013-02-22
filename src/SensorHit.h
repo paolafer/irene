@@ -22,20 +22,19 @@ namespace irene {
     
   public:
     // default constructor
-    SensorHit();
-    
+    SensorHit();   
     SensorHit(std::string det_name);
     // destructor
     ~SensorHit();
     
   private:
     
-    std::vector<std::pair<double, int> > _waveform;   
-    double _amplitude;
-    int _id;
-    double _bin_width;
-    std::string _detector_name;
-    TVector3 _position;
+    std::vector<std::pair<double, int> > _waveform; ///< times and counts of the sensor's response  
+    double _amplitude; ///< total counts summed over all the times
+    int _id; ///< unique identification number 
+    double _bin_width; ///< width of the time bins
+    std::string _detector_name; ///< type of sensor
+    TVector3 _position; ///< position of the sensor
 
   public:
     
@@ -73,12 +72,12 @@ namespace irene {
   inline int SensorHit::GetID() const {return _id;}
   inline void SensorHit::SetBinWidth(const double& width) {_bin_width = width;}
   inline double SensorHit::GetBinWidth() const {return _bin_width;}
-  inline void SensorHit::SetPosition(const double& x, const double& y, const double& z) {_position.SetXYZ(x, y, z);}
+  inline void SensorHit::SetPosition(const double& x,const double& y,const double& z) {_position.SetXYZ(x,y,z);}
   inline TVector3 SensorHit::GetPosition() const {return _position;}
   inline void SensorHit::SetDetectorName(const std::string det_name) {_detector_name = det_name;}
   inline std::string SensorHit::GetDetectorName() const {return _detector_name;}
 
-}
+} // end namespace irene
 
 ostream& operator << (ostream& s, const irene::SensorHit& lh);
 

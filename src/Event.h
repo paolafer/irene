@@ -31,6 +31,7 @@ namespace irene {
   public: 
     /// Constructor
     Event();
+    Event(int id);
     /// Destructor
     ~Event();
 
@@ -44,13 +45,13 @@ namespace irene {
 
   public:
 
-    void AddSensorHit(irene::SensorHit* hit);
+    void AddSensorHit(SensorHit* hit);
     const TObjArray* GetSensorHits() const;
 
-    void AddTrack(irene::Track* track);
+    void AddTrack(Track* track);
     const TObjArray* GetTracks() const;
 
-    void AddParticle(irene::Particle* particle);
+    void AddParticle(Particle* particle);
  
     const TObjArray* GetParticles() const; 
     TObjArray* GetParticles(); 
@@ -58,8 +59,7 @@ namespace irene {
     void SetID(const int& id); 
     int GetID() const;
 
-    // This method returns the true hits of every track in the event
-    const std::vector<std::pair<TLorentzVector,double> >& GetHits() const;
+    void GetHits(std::vector<std::pair<TLorentzVector,double> >& evthits);
 
     void Clear();
 

@@ -14,9 +14,7 @@
 #include <iostream>
 #include <iomanip>
 
-using namespace irene;
-
-ClassImp(Track)
+ClassImp(irene::Track)
 
 namespace irene {
 
@@ -42,9 +40,9 @@ namespace irene {
   }
 
 
-  void Track::SetParticle(irene::Particle* particle) 
+  void Track::SetParticle(Particle* particle) 
   {
-    _particle = (irene::Particle*)particle;
+    _particle = (Particle*)particle;
   }
 
   void Track::Info(ostream& s) const

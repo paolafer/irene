@@ -10,8 +10,6 @@
 
 #include "RootWriter.h"
 
-using namespace irene;
-
 namespace irene {
 
   RootWriter::RootWriter()
@@ -27,13 +25,12 @@ namespace irene {
     if (_file)
       delete _file;
 
-     _event = 0;
-     //_event = new Event();
+    _event = 0;
     _file = new TFile(filename.c_str(), option.c_str());
     _evtTree = new TTree("EVENT","Irene event tree");
     _evtTree->BranchRef();
     TTree::SetBranchStyle(1);
-    _evtTree->Branch("EventBranch","irene::Event",&_event,32000,1);
+    _evtTree->Branch("EventBranch","irene::Event",&_event);
     _isopen = true;
   }
 

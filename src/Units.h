@@ -145,6 +145,6 @@ namespace irene {
     static const double becquerel = 1./second ;
     static const double curie = 3.7e+10 * becquerel;
 
-}
+} // end namespace irene
 
 #endif

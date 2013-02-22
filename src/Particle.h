@@ -89,14 +89,14 @@ namespace irene {
     void SetPrimary(bool is_primary);
     const bool IsPrimary();
 
-    void SetMother(const irene::Particle* mother);
-    const irene::Particle* GetMother() const;
+    void SetMother(const Particle* mother);
+    const Particle* GetMother() const;
 
-    void SetTrack(const irene::Track* track);
-    const irene::Track* GetTrack() const;
-    irene::Track* GetTrack();
+    void SetTrack(const Track* track);
+    const Track* GetTrack() const;
+    Track* GetTrack();
 
-    void AddDaughter(irene::Particle* daughter);
+    void AddDaughter(Particle* daughter);
     
     const TRefArray GetDaughters() const;
     TRefArray& GetDaughters();
@@ -159,7 +159,7 @@ namespace irene {
   inline double Particle::Energy() const {return _initial_momentum.Energy();}
   inline double Particle::Momentum() const {return _initial_momentum.P();}
 
-}
+} // end namespace irene
 
 ostream& operator << (ostream& s, const irene::Particle& p);
 

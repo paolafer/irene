@@ -16,7 +16,6 @@ namespace irene {
   {
     _file = 0;
     _evtTree = 0;   
-    //_event = 0;
     _isopen = false;
   }
 

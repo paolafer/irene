@@ -59,7 +59,7 @@ namespace irene {
     void SetID(const int& id); 
     int GetID() const;
 
-    void GetHits(std::vector<std::pair<TLorentzVector,double> >& evthits);
+    void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits);
 
     void Clear();
 

@@ -29,7 +29,6 @@ namespace irene {
 
   Service::~Service()
   {
-    //delete _event;
   }
 
 }

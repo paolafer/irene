@@ -28,15 +28,13 @@ namespace irene {
   }
 
   Event::Event(int id) : _eventID(id) 
-  {
-    std::cout << "Event constructor" << std::endl;   
+  { 
     _sensor_hits = new TObjArray();
     _tracks = new TObjArray();
     _particles = new TObjArray();
   }
 
   Event::~Event() {
-    std::cout << "Event destructor" << std::endl;
     Clear();
   }
 
@@ -55,7 +53,7 @@ namespace irene {
     _particles->AddLast(particle);
   }
 
-  void Event::GetHits(std::vector<std::pair<TLorentzVector,double> >& evthits)
+  void Event::FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits)
   {
     TObjArray* tracks = (TObjArray*)GetTracks();
 

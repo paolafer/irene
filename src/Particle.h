@@ -87,7 +87,7 @@ namespace irene {
     double GetTrackLength() const;
     
     void SetPrimary(bool is_primary);
-    const bool IsPrimary();
+    bool IsPrimary();
 
     void SetMother(const Particle* mother);
     const Particle* GetMother() const;
@@ -129,7 +129,7 @@ namespace irene {
 
     void Info(ostream& s) const;
     
-    ClassDef(Particle,1);
+    ClassDef(Particle,2);
 
   };
 

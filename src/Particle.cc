@@ -92,7 +92,7 @@ namespace irene {
     _has_mother = false;
   }
   
-  const bool Particle::IsPrimary()
+  bool Particle::IsPrimary()
   {
     if (_primary == true) 
       return true;

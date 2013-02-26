@@ -42,7 +42,7 @@ namespace irene {
 
   void Track::SetParticle(Particle* particle) 
   {
-    _particle = (Particle*)particle;
+    _particle = particle;
   }
 
   void Track::Info(ostream& s) const

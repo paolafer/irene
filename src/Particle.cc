@@ -100,9 +100,9 @@ namespace irene {
       return false;    
   }
   
-  void Particle::SetMother(const irene::Particle* mother) 
+  void Particle::SetMother(irene::Particle* mother) 
   {
-    _mother = (Particle*)mother;
+    _mother = mother;
     _has_mother = true;
   }
 
@@ -111,9 +111,9 @@ namespace irene {
     return dynamic_cast<Particle*> (_mother.GetObject());
   }
 
-  void Particle::SetTrack(const Track* track) 
+  void Particle::SetTrack(Track* track) 
   {
-    _track = (Track*)track;
+    _track = track;
   }
 
   const Track* Particle::GetTrack() const

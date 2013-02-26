@@ -23,12 +23,12 @@ namespace irene {
 
   Service::Service()
   {
-   _root_writer = RootWriter();
    _event = new Event(0);
   }
 
   Service::~Service()
   {
+    delete _event;
   }
 
 }

@@ -35,7 +35,9 @@ namespace irene {
   }
 
   Event::~Event() {
+
     Clear();
+   
   }
 
   void Event::AddSensorHit(SensorHit* hit)

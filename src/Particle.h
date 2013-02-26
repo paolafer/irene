@@ -89,10 +89,10 @@ namespace irene {
     void SetPrimary(bool is_primary);
     bool IsPrimary();
 
-    void SetMother(const Particle* mother);
+    void SetMother(Particle* mother);
     const Particle* GetMother() const;
 
-    void SetTrack(const Track* track);
+    void SetTrack(Track* track);
     const Track* GetTrack() const;
     Track* GetTrack();
 

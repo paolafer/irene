@@ -27,9 +27,8 @@ namespace irene {
     _event = 0;
     _file = new TFile(filename.c_str(), option.c_str());
     _evtTree = new TTree("EVENT","Irene event tree");
-    // _evtTree->BranchRef();
     TTree::SetBranchStyle(1);
-    _evtTree->Branch("EventBranch","irene::Event",&_event,32000,0);
+    _evtTree->Branch("EventBranch","irene::Event",&_event);
     _isopen = true;
   }
 

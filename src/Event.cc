@@ -29,38 +29,33 @@ namespace irene {
 
   Event::Event(int id) : _eventID(id) 
   { 
-    _sensor_hits = new TObjArray();
-    _tracks = new TObjArray();
-    _particles = new TObjArray();
   }
 
   Event::~Event() {
-
-    Clear();
-   
+    Clear();  
   }
 
   void Event::AddSensorHit(SensorHit* hit)
   {
-    _sensor_hits->AddLast(hit);
+    _sensor_hits.AddLast(hit);
   }
 
   void Event::AddTrack(Track* track)
   {
-    _tracks->AddLast(track);
+    _tracks.AddLast(track);
   }
 
    void Event::AddParticle(Particle* particle)
   {
-    _particles->AddLast(particle);
+    _particles.AddLast(particle);
   }
 
   void Event::FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits)
   {
-    TObjArray* tracks = (TObjArray*)GetTracks();
+    const TObjArray& tracks = GetTracks();
 
-    for (int itr=0; itr<tracks->GetLast()+1; ++itr) {
-      Track* mytrack = (Track*)tracks->At(itr);
+    for (int itr=0; itr<tracks.GetLast()+1; ++itr) {
+      Track* mytrack = (Track*)tracks.At(itr);
       for (int ihit=0; ihit<mytrack->GetHits().size(); ++ihit) {
 	std::pair<TLorentzVector,double> myhit = (mytrack->GetHits())[ihit];
 	evthits.push_back(myhit);
@@ -71,15 +66,10 @@ namespace irene {
   
   void Event::Clear()
   {
-    if (_sensor_hits) {
-      _sensor_hits->Delete();
-    }
-    if (_tracks) {
-      _tracks->Delete();
-    }
-    if (_particles) {
-      _particles->Delete();
-    }
+    _sensor_hits.Delete();
+    _tracks.Delete();   
+    _particles.Delete();
+    
     _eventID = 0;
   }
 
@@ -88,17 +78,17 @@ namespace irene {
     s << std::endl;    
     s << "event number = " << GetID() << std::endl;
 
-    TObjArray* tracks = (TObjArray*)GetTracks();
+    const TObjArray& tracks = GetTracks();
     int tothits=0;
-    for (unsigned int itrack=0; itrack<tracks->GetLast()+1; ++itrack) {
-      Track* mytrack = (Track*)tracks->At(itrack);     
+    for (unsigned int itrack=0; itrack<tracks.GetLast()+1; ++itrack) {
+      Track* mytrack = (Track*)tracks.At(itrack);     
       tothits = tothits +  mytrack->GetHits().size();
     }
     s << "event has " << tothits << " true hits"
       << std::endl;
-    s << "event has " << GetSensorHits()->GetLast()+1 << " sensor hits"
+    s << "event has " << GetSensorHits().GetLast()+1 << " sensor hits"
       << std::endl;
-    s << "event has " << GetParticles()->GetLast()+1 << " particles"
+    s << "event has " << GetParticles().GetLast()+1 << " particles"
       << std::endl;  
 
     s << std::endl;  
@@ -106,10 +96,10 @@ namespace irene {
       << "------------------------------------" << std::endl;
     s << std::endl;   
 
-    TObjArray* sensorhits = (TObjArray*)GetSensorHits();
+    const TObjArray& sensorhits = GetSensorHits();
      
-    for (unsigned int ihit=0; ihit<sensorhits->GetLast()+1; ++ihit) {
-      SensorHit* myhit = (SensorHit*)sensorhits->At(ihit);
+    for (unsigned int ihit=0; ihit<sensorhits.GetLast()+1; ++ihit) {
+      SensorHit* myhit = (SensorHit*)sensorhits.At(ihit);
       s << *myhit <<std::endl;
     }
   
@@ -117,18 +107,18 @@ namespace irene {
       << "------------------------------------" << std::endl;
     s << std::endl;   
     
-    for (unsigned int itrack=0; itrack<tracks->GetLast()+1; ++itrack) {
-      Track* mytrack = (Track*)tracks->At(itrack);
+    for (unsigned int itrack=0; itrack<tracks.GetLast()+1; ++itrack) {
+      Track* mytrack = (Track*)tracks.At(itrack);
       s << *mytrack <<std::endl;
     }
 
 
     s << " List of particles in the event"
       << "------------------------------------" << std::endl;
-    TObjArray* particles = (TObjArray*)GetParticles();
+    const TObjArray& particles = GetParticles();
     
-    for (unsigned int ipart=0; ipart<particles->GetLast()+1; ipart++){
-      Particle* mypart = (Particle*)particles->At(ipart);
+    for (unsigned int ipart=0; ipart<particles.GetLast()+1; ipart++){
+      Particle* mypart = (Particle*)particles.At(ipart);
       s << *mypart <<std::endl;
     }    
   

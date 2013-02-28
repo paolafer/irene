@@ -35,7 +35,8 @@ namespace irene {
     Particle(const int& pdg);
     /// Destructor
     ~Particle();
-    
+
+   
   private:
     int _PDGcode; ///< PDG code of the particle
     TLorentzVector _initial_vertex; ///< point and time of generation
@@ -91,6 +92,7 @@ namespace irene {
 
     void SetMother(Particle* mother);
     const Particle* GetMother() const;
+    Particle* GetMother();
 
     void SetTrack(Track* track);
     const Track* GetTrack() const;

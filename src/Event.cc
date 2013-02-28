@@ -30,6 +30,23 @@ namespace irene {
   { 
   }
 
+  Event::Event(const Event& right)
+  {
+    if (this != &right) {
+
+      TObjArray* psensor_hits = (TObjArray*)right._sensor_hits.Clone();
+      _sensor_hits = *psensor_hits;
+
+      TObjArray* ptracks = (TObjArray*)right._tracks.Clone();
+      _tracks = *ptracks;
+
+      TObjArray* pparticles = (TObjArray*)right._particles.Clone();
+      _particles = *pparticles;
+
+      _eventID = right._eventID;
+    }
+  } 
+
   Event::~Event() {
     Clear();  
   }
@@ -68,7 +85,7 @@ namespace irene {
     _sensor_hits.Delete();
     _tracks.Delete();   
     _particles.Delete();
-    
+   
     _eventID = 0;
   }
 

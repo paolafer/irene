@@ -32,6 +32,8 @@ namespace irene {
     /// Constructor
     Event();
     Event(int id);
+    /// Copy Constructor
+    Event(const Event& right);
     /// Destructor
     ~Event();
 

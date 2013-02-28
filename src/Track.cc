@@ -20,6 +20,8 @@ namespace irene {
 
   Track::Track()
   {
+    _id = 0;
+    _track_length = 0;
     _particle = 0;
     _hits.clear();
   }
@@ -43,6 +45,11 @@ namespace irene {
   void Track::SetParticle(Particle* particle) 
   {
     _particle = particle;
+  }
+
+  Particle* Track::GetParticle() 
+  {
+    return dynamic_cast<Particle*> (_particle.GetObject());
   }
 
   void Track::Info(ostream& s) const

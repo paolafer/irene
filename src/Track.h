@@ -43,6 +43,7 @@ namespace irene {
     const std::vector<std::pair<TLorentzVector,double> >& GetHits();
    
     void SetParticle(Particle* particle);
+    Particle* GetParticle();
     void SetID(const int& id);
     int GetID() const;
     void SetLength(const double& length);

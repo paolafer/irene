@@ -12,6 +12,8 @@
 #include "Units.h"
 #include "Track.h"
 
+#include <iostream>
+
 ClassImp(irene::Particle);
 
 namespace irene {
@@ -107,6 +109,11 @@ namespace irene {
   }
 
   const Particle* Particle::GetMother() const
+  {
+    return dynamic_cast<Particle*> (_mother.GetObject());
+  }
+
+  Particle* Particle::GetMother()
   {
     return dynamic_cast<Particle*> (_mother.GetObject());
   }

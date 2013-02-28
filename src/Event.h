@@ -20,7 +20,6 @@ namespace irene {class SensorHit;}
 namespace irene {class Track;}
 namespace irene {class Particle;}
 
-//class TObjArray;
 class TLorentzVector;
 
 namespace irene {

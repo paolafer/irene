@@ -13,7 +13,6 @@
 #include "Track.h"
 #include "Particle.h"
 
-#include <TObjArray.h>
 #include <TLorentzVector.h>
 
 ClassImp(irene::Event)

@@ -129,7 +129,7 @@ namespace irene {
 
     void Info(ostream& s) const;
     
-    ClassDef(Particle,2);
+    ClassDef(Particle,1);
 
   };
 

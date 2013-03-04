@@ -39,24 +39,24 @@ namespace irene {
 
   private:
 
-    TObjArray _sensor_hits; ///< sensor response
-    TObjArray _tracks; ///< true hits of particles
-    TObjArray _particles; ///< particles
+    TObjArray* _sensor_hits; ///< sensor response
+    TObjArray* _tracks; ///< true hits of particles
+    TObjArray* _particles; ///< particles
     int _eventID; ///< unique identificative number
   
 
   public:
 
     void AddSensorHit(SensorHit* hit);
-    const TObjArray& GetSensorHits() const;
+    const TObjArray* GetSensorHits() const;
 
     void AddTrack(Track* track);
-    const TObjArray& GetTracks() const;
+    const TObjArray* GetTracks() const;
 
     void AddParticle(Particle* particle);
  
-    const TObjArray& GetParticles() const; 
-    TObjArray& GetParticles(); 
+    const TObjArray* GetParticles() const; 
+    TObjArray* GetParticles(); 
 
     void SetID(const int& id); 
     int GetID() const;
@@ -72,10 +72,10 @@ namespace irene {
   };
 
   // INLINE methods
-  inline const TObjArray& Event::GetSensorHits() const {return _sensor_hits;}
-  inline const TObjArray& Event::GetTracks() const {return _tracks;}
-  inline const TObjArray& Event::GetParticles() const {return _particles;}
-  inline TObjArray& Event::GetParticles() {return _particles;}
+  inline const TObjArray* Event::GetSensorHits() const {return _sensor_hits;}
+  inline const TObjArray* Event::GetTracks() const {return _tracks;}
+  inline const TObjArray* Event::GetParticles() const {return _particles;}
+  inline TObjArray* Event::GetParticles() {return _particles;}
   inline void Event::SetID(const int& id) {_eventID = id;}
   inline int Event::GetID() const {return _eventID;}  
 

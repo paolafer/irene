@@ -49,6 +49,10 @@ namespace irene {
 
   Particle* Track::GetParticle() 
   {
+    if (!_particle.GetObject()) {
+      std::cerr << "[ERROR: irene::Track::GetParticle()]:" 
+		<< " the track has no particle associated!" << std::endl;
+    }
     return dynamic_cast<Particle*> (_particle.GetObject());
   }
 

@@ -110,11 +110,19 @@ namespace irene {
 
   const Particle* Particle::GetMother() const
   {
+    if (!_mother.GetObject()) {
+      std::cerr << "[ERROR: irene::Particle::GetMother()]:" 
+		<< " the particle is primary, it has no mother!" << std::endl;
+    }
     return dynamic_cast<Particle*> (_mother.GetObject());
   }
 
   Particle* Particle::GetMother()
   {
+    if (!_mother.GetObject()) {
+      std::cerr << "[ERROR: irene::Particle::GetMother()]:" 
+		<< " the particle is primary, it has no mother!" << std::endl;
+    }
     return dynamic_cast<Particle*> (_mother.GetObject());
   }
 

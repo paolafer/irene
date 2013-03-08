@@ -149,6 +149,9 @@ namespace irene {
 	 return tr;
       }
     }
+    std::cerr << "[ERROR: irene::Particle::GetTrack()]:" 
+	      << " the particle doesn't have hits from detector "
+	      << det << std::endl;
    
   }
 

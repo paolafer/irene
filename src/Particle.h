@@ -47,7 +47,7 @@ namespace irene {
     bool _primary; ///< true if the particle is the one directly generated in Geant4
     bool _has_mother; ///< true if the particle comes from another particle through some process
     TRef _mother; ///< reference to the mother particle
-    TRef _track; ///< reference to the track which contains the true hits of the particle
+    TRefArray _tracks; ///< reference to the tracks that contains the true hits of the particle
     TRefArray _daughters; ///< array of references to the secondary particles
     double _mass; ///< mass. It cannot be set, it is given through the name or the PDG code.
     double _charge; ///< charge. It cannot be set, it is given through the name or the PDG code.
@@ -94,12 +94,14 @@ namespace irene {
     const Particle* GetMother() const;
     Particle* GetMother();
 
-    void SetTrack(Track* track);
-    const Track* GetTrack() const;
-    Track* GetTrack();
+    /* void SetTrack(Track* track); */
+    /* const Track* GetTrack() const; */
+    /* Track* GetTrack(); */
+    void AddTrack(Track* track);    
+    const TRefArray GetTracks() const;
+    TRefArray& GetTracks();
 
-    void AddDaughter(Particle* daughter);
-    
+    void AddDaughter(Particle* daughter);    
     const TRefArray GetDaughters() const;
     TRefArray& GetDaughters();
  
@@ -131,7 +133,7 @@ namespace irene {
 
     void Info(ostream& s) const;
     
-    ClassDef(Particle,1);
+    ClassDef(Particle,2);
 
   };
 

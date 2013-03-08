@@ -23,7 +23,7 @@ namespace irene {
 			 _mass(0), _charge(0),
 			 _lifetime(0)
   {
-    _track = 0;
+    _tracks = 0;
     _daughters = 0;
     _mother = 0;
     _name = "unknown";
@@ -126,26 +126,40 @@ namespace irene {
     return dynamic_cast<Particle*> (_mother.GetObject());
   }
 
-  void Particle::SetTrack(Track* track) 
+  // void Particle::SetTrack(Track* track) 
+  // {
+  //   _track = track;
+  // }
+
+  // const Track* Particle::GetTrack() const
+  // {
+  //   return dynamic_cast<Track*> (_track.GetObject());
+  // }
+
+  // Track* Particle::GetTrack()
+  // {
+  //   if (!_track.GetObject()) {
+  //     std::cerr << "[ERROR: irene::Particle::GetTrack()]:" 
+  // 		<< " the particle doesn't have a track associated,"
+  // 		<< " because it has not produced true hits" << std::endl;
+  //   }
+  //   return dynamic_cast<Track*> (_track.GetObject());
+  // }
+
+  void Particle::AddTrack(Track* track)
   {
-    _track = track;
+    _tracks.Add(track);
+  }
+  
+  TRefArray& Particle::GetTracks()
+  {   
+    return _tracks;
   }
 
-  const Track* Particle::GetTrack() const
-  {
-    return dynamic_cast<Track*> (_track.GetObject());
+  const TRefArray Particle::GetTracks() const
+  {   
+    return _tracks;
   }
-
-  Track* Particle::GetTrack()
-  {
-    if (!_track.GetObject()) {
-      std::cerr << "[ERROR: irene::Particle::GetTrack()]:" 
-		<< " the particle doesn't have a track associated,"
-		<< " because it has not produced true hits" << std::endl;
-    }
-    return dynamic_cast<Track*> (_track.GetObject());
-  }
-
 
   void Particle::AddDaughter(Particle* daughter)
   {
@@ -328,10 +342,10 @@ namespace irene {
     s << "List of true hits of the particle"
       << " ----------------------" << std::endl;
     
-    if ((this->GetTrack())) {
-      s << *(this->GetTrack()) << std::endl;
-      s << "Track length = " << this->GetTrack()->GetLength() << std::endl;
-    }
+    // if ((this->GetTrack())) {
+    //   s << *(this->GetTrack()) << std::endl;
+    //   s << "Track length = " << this->GetTrack()->GetLength() << std::endl;
+    // }
 
   }
     

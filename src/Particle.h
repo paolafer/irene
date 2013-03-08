@@ -94,9 +94,6 @@ namespace irene {
     const Particle* GetMother() const;
     Particle* GetMother();
 
-    /* void SetTrack(Track* track); */
-    /* const Track* GetTrack() const; */
-    /* Track* GetTrack(); */
     void AddTrack(Track* track);    
     const TRefArray GetTracks() const;
     TRefArray& GetTracks();

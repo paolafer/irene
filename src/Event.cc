@@ -67,15 +67,17 @@ namespace irene {
     _particles->AddLast(particle);
   }
 
-  void Event::FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits)
+  void Event::FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string& det)
   {
     const TObjArray* tracks = GetTracks();
 
     for (int itr=0; itr<tracks->GetLast()+1; ++itr) {
       Track* mytrack = (Track*)tracks->At(itr);
-      for (int ihit=0; ihit<mytrack->GetHits().size(); ++ihit) {
-	std::pair<TLorentzVector,double> myhit = (mytrack->GetHits())[ihit];
-	evthits.push_back(myhit);
+      if (mytrack->GetDetector() == det) {
+	for (int ihit=0; ihit<mytrack->GetHits().size(); ++ihit) {
+	  std::pair<TLorentzVector,double> myhit = (mytrack->GetHits())[ihit];
+	  evthits.push_back(myhit);
+	}
       }
     }
    
@@ -132,6 +134,9 @@ namespace irene {
     
     for (unsigned int itrack=0; itrack<tracks->GetLast()+1; ++itrack) {
       Track* mytrack = (Track*)tracks->At(itrack);
+      s << std::endl;
+      s << "Detector " << mytrack->GetDetector() << std::endl;
+      s << std::endl;
       s << *mytrack <<std::endl;
     }
 

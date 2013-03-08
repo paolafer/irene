@@ -126,26 +126,6 @@ namespace irene {
     return dynamic_cast<Particle*> (_mother.GetObject());
   }
 
-  // void Particle::SetTrack(Track* track) 
-  // {
-  //   _track = track;
-  // }
-
-  // const Track* Particle::GetTrack() const
-  // {
-  //   return dynamic_cast<Track*> (_track.GetObject());
-  // }
-
-  // Track* Particle::GetTrack()
-  // {
-  //   if (!_track.GetObject()) {
-  //     std::cerr << "[ERROR: irene::Particle::GetTrack()]:" 
-  // 		<< " the particle doesn't have a track associated,"
-  // 		<< " because it has not produced true hits" << std::endl;
-  //   }
-  //   return dynamic_cast<Track*> (_track.GetObject());
-  // }
-
   void Particle::AddTrack(Track* track)
   {
     _tracks.Add(track);
@@ -274,8 +254,8 @@ namespace irene {
     s << "particle 3 momentum (MeV) =" << std::endl;
     s << "(" << _initial_momentum.X()/MeV << "," << _initial_momentum.Y()/MeV <<
       "," << _initial_momentum.Z()/MeV << ")" << std::endl;
-    s << " momentum (MeV) = " << this->Momentum()/MeV << std::endl;
-    s << " energy (MeV)= " << this->Energy()/MeV << std::endl;
+    s << " momentum (MeV) = " << Momentum()/MeV << std::endl;
+    s << " energy (MeV)= " << Energy()/MeV << std::endl;
     s << " vertex (mm)= " <<  std::endl;
     s << "(" << _initial_vertex.X()/mm << "," << _initial_vertex.Y()/mm <<
       "," << _initial_vertex.Z()/mm << ")" << std::endl;
@@ -303,9 +283,9 @@ namespace irene {
       if (_has_mother) {
 	s << "mother of particle is " << this->GetMother()->Name() << std::endl;
 	s << "with 3 momentum (MeV) ="  << std::endl;
-	s << "(" << this->GetMother()->GetInitialMomentum().X()/MeV << "," << 
-	  this->GetMother()->GetInitialMomentum().Y()/MeV << "," << 
-	  this->GetMother()->GetInitialMomentum().Z()/MeV << ")" << std::endl;
+	s << "(" << GetMother()->GetInitialMomentum().X()/MeV << "," << 
+	  GetMother()->GetInitialMomentum().Y()/MeV << "," << 
+	  GetMother()->GetInitialMomentum().Z()/MeV << ")" << std::endl;
 	s << "and energy (MeV)= " << this->GetMother()->Energy()/MeV << std::endl;
       }
     }
@@ -342,10 +322,15 @@ namespace irene {
     s << "List of true hits of the particle"
       << " ----------------------" << std::endl;
     
-    // if ((this->GetTrack())) {
-    //   s << *(this->GetTrack()) << std::endl;
-    //   s << "Track length = " << this->GetTrack()->GetLength() << std::endl;
-    // }
+    for (int i=0; i<GetTracks().GetLast()+1; ++i) {
+      Track* t = (Track*)_tracks.At(i);
+      s << std::endl;
+      s << "Detector " << t->GetDetector() << std::endl;
+      s << std::endl;
+      s << *t << std::endl;
+      s << "Track length = " << t->GetLength() << std::endl;
+    }
+
 
   }
     

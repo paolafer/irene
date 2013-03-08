@@ -26,8 +26,9 @@ namespace irene {
   class Track: public TObject {
     
   public:
-    /// Constructor
+    /// Constructors
     Track();
+    Track(std::string& detector);
     /// Destructor
     ~Track();
 
@@ -36,6 +37,7 @@ namespace irene {
     TRef _particle; ///< reference to the particle the track is created by
     int _id; ///< unique identification number for the track. It should be the same as its particles's
     double _track_length; ///< total length
+    std::string _detector_name; ///< detector where hits have been produced
 
   public:
     void AddHit(const double& x, const double& y, const double& z, 
@@ -48,10 +50,12 @@ namespace irene {
     int GetID() const;
     void SetLength(const double& length);
     double GetLength() const;
+    void SetDetector(const std::string& det);
+    std::string GetDetector() const;
     
     void Info(ostream& s) const;
     
-    ClassDef(Track,1);
+    ClassDef(Track,2);
     
   };
 
@@ -61,6 +65,8 @@ namespace irene {
   inline int Track::GetID() const {return _id;}
   inline void Track::SetLength(const double& length) {_track_length = length;}
   inline double Track::GetLength() const {return _track_length;}
+  inline void Track::SetDetector(const std::string& det) {_detector_name = det;}
+  inline std::string Track::GetDetector() const {return _detector_name;}
 
 } // end namespace irene
 

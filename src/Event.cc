@@ -67,7 +67,7 @@ namespace irene {
     _particles->AddLast(particle);
   }
 
-  void Event::FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string& det)
+  void Event::FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string det)
   {
     const TObjArray* tracks = GetTracks();
 

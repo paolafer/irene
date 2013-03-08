@@ -61,7 +61,7 @@ namespace irene {
     void SetID(const int& id); 
     int GetID() const;
 
-    void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string& det);
+    void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string det);
 
     void Clear();
 

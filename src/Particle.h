@@ -97,6 +97,7 @@ namespace irene {
     void AddTrack(Track* track);    
     const TRefArray GetTracks() const;
     TRefArray& GetTracks();
+    Track* GetTrack(std::string det);
 
     void AddDaughter(Particle* daughter);    
     const TRefArray GetDaughters() const;

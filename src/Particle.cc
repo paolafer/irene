@@ -141,6 +141,17 @@ namespace irene {
     return _tracks;
   }
 
+  Track* Particle::GetTrack(std::string det)
+  {   
+    for (int i=0; i< _tracks.GetLast()+1; ++i) {
+      Track* tr = (Track*)_tracks.At(i);
+      if (tr->GetDetector() == det) {
+	 return tr;
+      }
+    }
+   
+  }
+
   void Particle::AddDaughter(Particle* daughter)
   {
     _daughters.Add(daughter);

@@ -35,7 +35,7 @@ namespace irene {
   private:
     std::vector<std::pair<TLorentzVector,double> > _hits; ///< true hits in the track
     TRef _particle; ///< reference to the particle the track is created by
-    int _id; ///< unique identification number for the track. It should be the same as its particles's
+    int _id; ///< identification number for the track. It should be the same as its particles's. Thus, if the particle has more than one track, two or more tracks can have the same ID number.
     double _track_length; ///< total length
     std::string _detector_name; ///< detector where hits have been produced
 

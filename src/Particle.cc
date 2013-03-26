@@ -38,7 +38,7 @@ namespace irene {
     _properties.clear();
   }
 
-  Particle::Particle(const int& pdg_code)
+  Particle::Particle(int pdg_code)
   {
     SetPDGcode(pdg_code);
     SetName(pdg_code);

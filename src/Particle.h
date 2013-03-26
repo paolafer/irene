@@ -32,7 +32,7 @@ namespace irene {
     /// Constructors
     Particle();
     Particle(std::string name);
-    Particle(const int& pdg);
+    Particle(int pdg);
     /// Destructor
     ~Particle();
 

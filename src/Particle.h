@@ -43,7 +43,7 @@ namespace irene {
     TLorentzVector _decay_vertex; ///< point and time of death
     TLorentzVector _initial_momentum; ///< initial momentum and energy
     TLorentzVector _decay_momentum; ///< final momentum and energy
-    int _G4TrackID; ///< identification number coming from the Geant4 simulation
+    int _particleID; ///< identification number coming from the Geant4 simulation
     bool _primary; ///< true if the particle is the one directly generated in Geant4
     bool _has_mother; ///< true if the particle comes from another particle through some process
     TRef _mother; ///< reference to the mother particle
@@ -62,29 +62,29 @@ namespace irene {
     
 
   public:
-    void SetPDGcode(const int& pdg);
+    void SetPDGcode(int pdg);
     int GetPDGcode() const;
 
-    void SetInitialVertex(const double x, const double y, 
-			  const double z, const double t);
+    void SetInitialVertex(double x, double y, 
+			  double z, double t);
     TLorentzVector GetInitialVertex() const;
    
-    void SetDecayVertex(const double x, const double y, 
-			   const double z, const double t);
+    void SetDecayVertex(double x, double y, 
+			double z, double t);
     TLorentzVector GetDecayVertex() const;
 
-    void SetInitialMomentum(const double x, const double y, 
-			   const double z, const double t);
+    void SetInitialMomentum(double x, double y, 
+			   double z, double t);
     TLorentzVector GetInitialMomentum() const;
 
-    void SetDecayMomentum(const double x, const double y, 
-			   const double z, const double t);
+    void SetDecayMomentum(double x, double y, 
+			  double z, double t);
     TLorentzVector GetDecayMomentum() const;
 
-    void SetG4TrackID(const int& trackID);
-    int GetG4TrackID() const;
+    void SetParticleID(int trackID);
+    int GetParticleID() const;
 
-    void SetTrackLength(const double& length);
+    void SetTrackLength(double length);
     double GetTrackLength() const;
     
     void SetPrimary(bool is_primary);
@@ -106,20 +106,20 @@ namespace irene {
     void SetParameters(double m, double q, double l);
 
     void SetParticleName(std::string name);
-    void SetName(const int& code);
+    void SetName(int code);
     std::string Name() const;
 
-    void SetInitialVolume(const std::string& vol);
+    void SetInitialVolume(std::string vol);
     std::string GetInitialVolume() const;
 
-    void SetDecayVolume(const std::string& vol);
+    void SetDecayVolume(std::string vol);
     std::string GetDecayVolume() const;
 
-    void SetCreatorProcess(const std::string& process);
+    void SetCreatorProcess(std::string process);
     std::string GetCreatorProcess() const;
 
     void AddProperty(std::string pname, double& pvalue);
-    double FindProperty(const std::string pname);
+    double FindProperty(std::string pname);
 
     double GetMass() const;
     double GetCharge() const;
@@ -131,27 +131,27 @@ namespace irene {
 
     void Info(ostream& s) const;
     
-    ClassDef(Particle,2);
+    ClassDef(Particle,3);
 
   };
 
   // INLINE functions
-  inline void Particle::SetPDGcode(const int& pdg) {_PDGcode = pdg;}
+  inline void Particle::SetPDGcode(int pdg) {_PDGcode = pdg;}
   inline int Particle::GetPDGcode() const {return _PDGcode;}
   inline TLorentzVector Particle::GetInitialVertex() const {return _initial_vertex;}
   inline TLorentzVector Particle::GetDecayVertex() const {return _decay_vertex;}
   inline TLorentzVector Particle::GetInitialMomentum() const {return _initial_momentum;}
   inline TLorentzVector Particle::GetDecayMomentum() const {return _decay_momentum;}
-  inline void Particle::SetG4TrackID(const int& trackID) {_G4TrackID = trackID;}
-  inline int Particle::GetG4TrackID() const {return _G4TrackID;}
-  inline void Particle::SetTrackLength(const double& length) {_track_length = length;}
+  inline void Particle::SetParticleID(int partID) {_particleID = partID;}
+  inline int Particle::GetParticleID() const {return _particleID;}
+  inline void Particle::SetTrackLength(double length) {_track_length = length;}
   inline double Particle::GetTrackLength() const {return _track_length;}
   inline std::string Particle::Name() const {return _name;}
-  inline void Particle::SetInitialVolume(const std::string& vol) {_origin_volume = vol;}
+  inline void Particle::SetInitialVolume(std::string vol) {_origin_volume = vol;}
   inline std::string Particle::GetInitialVolume() const {return _origin_volume;}
-  inline void Particle::SetDecayVolume(const std::string& vol) {_decay_volume = vol;}
+  inline void Particle::SetDecayVolume(std::string vol) {_decay_volume = vol;}
   inline std::string Particle::GetDecayVolume() const {return _decay_volume;}
-  inline void Particle::SetCreatorProcess(const std::string& process) {_creator_process = process;}
+  inline void Particle::SetCreatorProcess(std::string process) {_creator_process = process;}
   inline std::string Particle::GetCreatorProcess() const {return _creator_process;}
   inline void Particle::AddProperty(std::string pname, double& pvalue) {_properties[pname] = pvalue;}
   inline double Particle::FindProperty(const std::string pname) {return _properties[pname];}

@@ -31,7 +31,7 @@ namespace irene {
   {
     _waveform.clear();
     _detector_name = det_name;
-     _position.SetXYZ(0., 0., 0.);
+    _position.SetXYZ(0., 0., 0.);
   }
 
   SensorHit::~SensorHit() 
@@ -39,8 +39,8 @@ namespace irene {
     
   }  
 
-  void SensorHit::SetSample(const double& amp, 
-			   const double& time) {
+  void SensorHit::SetSample(double amp, 
+			    double time) {
     std::pair<double, int> sample;
     sample.first = time;
     sample.second = amp;

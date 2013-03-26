@@ -40,8 +40,8 @@ namespace irene {
   {  
   }
 
-  void Track::AddHit(const double& x, const double& y, const double& z, 
-  		const double& t, const double& energy)
+  void Track::AddHit(double x, double y, double z, 
+		     double t, double energy)
   {
     std::pair<TLorentzVector,double> newhit;
     newhit.first.SetXYZT(x,y,z,t);

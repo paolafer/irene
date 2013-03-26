@@ -18,7 +18,7 @@ ClassImp(irene::Particle);
 
 namespace irene {
 
-  Particle::Particle() : _PDGcode(0), _G4TrackID(0),
+  Particle::Particle() : _PDGcode(0), _particleID(0),
 			 _primary(false), _has_mother(false),
 			 _mass(0), _charge(0),
 			 _lifetime(0)
@@ -112,7 +112,7 @@ namespace irene {
   {
     if (!_mother.GetObject()) {
       std::cerr << "[ERROR: irene::Particle::GetMother()]:" 
-		<< " the particle is primary, it has no mother!" << std::endl;
+    		<< " the particle is primary, it has no mother!" << std::endl;
     }
     return dynamic_cast<Particle*> (_mother.GetObject());
   }
@@ -121,7 +121,7 @@ namespace irene {
   {
     if (!_mother.GetObject()) {
       std::cerr << "[ERROR: irene::Particle::GetMother()]:" 
-		<< " the particle is primary, it has no mother!" << std::endl;
+    		<< " the particle is primary, it has no mother!" << std::endl;
     }
     return dynamic_cast<Particle*> (_mother.GetObject());
   }
@@ -149,9 +149,10 @@ namespace irene {
 	 return tr;
       }
     }
-    std::cerr << "[ERROR: irene::Particle::GetTrack()]:" 
-	      << " the particle doesn't have hits from detector "
-	      << det << std::endl;
+    // std::cerr << "[ERROR: irene::Particle::GetTrack()]:" 
+    // 	      << " the particle doesn't have hits from detector "
+    // 	      << det << std::endl;
+    return 0;
    
   }
 
@@ -177,7 +178,7 @@ namespace irene {
     _lifetime = l;
   }
 
-  void Particle::SetName(const int& code) 
+  void Particle::SetName(int code) 
   {
     if (code == 22) {
       _name = "gamma";
@@ -287,7 +288,7 @@ namespace irene {
     s << "creator process = " << _creator_process << std::endl;
     s << "origin volume = " << _origin_volume << std::endl;
     s << "decay volume = " << _decay_volume << std::endl;
-    s << "G4TrackID = " << _G4TrackID << std::endl;
+    s << "Particle ID = " << _particleID << std::endl;
     //    s << "track length = " << _track_length << std::endl;
 
     if (_primary) {

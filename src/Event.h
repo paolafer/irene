@@ -58,7 +58,7 @@ namespace irene {
     const TObjArray* GetParticles() const; 
     TObjArray* GetParticles(); 
 
-    void SetID(const int& id); 
+    void SetID(int id); 
     int GetID() const;
 
     void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string det);
@@ -76,7 +76,7 @@ namespace irene {
   inline const TObjArray* Event::GetTracks() const {return _tracks;}
   inline const TObjArray* Event::GetParticles() const {return _particles;}
   inline TObjArray* Event::GetParticles() {return _particles;}
-  inline void Event::SetID(const int& id) {_eventID = id;}
+  inline void Event::SetID(int id) {_eventID = id;}
   inline int Event::GetID() const {return _eventID;}  
 
 } // end namespace irene

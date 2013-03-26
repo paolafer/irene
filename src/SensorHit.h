@@ -38,22 +38,22 @@ namespace irene {
 
   public:
     
-    void SetSample(const double& amp, const double& time);
+    void SetSample(double amp, double time);
     const std::vector<std::pair<double,int> >& GetWaveform() const;
  
-    void SetAmplitude(const double& amplitude);   
+    void SetAmplitude(double amplitude);   
     double GetAmplitude() const; 
 
-    void SetID(const int& id);
+    void SetID(int id);
     int GetID() const;
 
-    void SetBinWidth(const double& width);
+    void SetBinWidth(double width);
     double GetBinWidth() const;
     
-    void SetPosition(const double& x, const double& y, const double& z);
+    void SetPosition(double x, double y, double z);
     TVector3 GetPosition() const;
 
-    void SetDetectorName(const std::string);
+    void SetDetectorName(std::string);
     std::string GetDetectorName() const;
 
     void Info(ostream& s) const;
@@ -66,15 +66,15 @@ namespace irene {
   // IN-LINE FUNCTIONS
   
   inline const std::vector<std::pair<double, int> >& SensorHit::GetWaveform() const {return _waveform;}
-  inline void SensorHit::SetAmplitude(const double& amplitude) {_amplitude = amplitude;}
+  inline void SensorHit::SetAmplitude(double amplitude) {_amplitude = amplitude;}
   inline double SensorHit::GetAmplitude() const {return _amplitude;}
-  inline void SensorHit::SetID(const int& id) {_id = id;}
+  inline void SensorHit::SetID(int id) {_id = id;}
   inline int SensorHit::GetID() const {return _id;}
-  inline void SensorHit::SetBinWidth(const double& width) {_bin_width = width;}
+  inline void SensorHit::SetBinWidth(double width) {_bin_width = width;}
   inline double SensorHit::GetBinWidth() const {return _bin_width;}
-  inline void SensorHit::SetPosition(const double& x,const double& y,const double& z) {_position.SetXYZ(x,y,z);}
+  inline void SensorHit::SetPosition(double x, double y, double z) {_position.SetXYZ(x,y,z);}
   inline TVector3 SensorHit::GetPosition() const {return _position;}
-  inline void SensorHit::SetDetectorName(const std::string det_name) {_detector_name = det_name;}
+  inline void SensorHit::SetDetectorName(std::string det_name) {_detector_name = det_name;}
   inline std::string SensorHit::GetDetectorName() const {return _detector_name;}
 
 } // end namespace irene

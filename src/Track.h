@@ -40,17 +40,17 @@ namespace irene {
     std::string _detector_name; ///< detector where hits have been produced
 
   public:
-    void AddHit(const double& x, const double& y, const double& z, 
-		const double& t, const double& energy);
+    void AddHit(double x, double y, double z, 
+		double t, double energy);
     const std::vector<std::pair<TLorentzVector,double> >& GetHits();
    
     void SetParticle(Particle* particle);
     Particle* GetParticle();
-    void SetID(const int& id);
+    void SetID(int id);
     int GetID() const;
-    void SetLength(const double& length);
+    void SetLength(double length);
     double GetLength() const;
-    void SetDetector(const std::string& det);
+    void SetDetector(std::string det);
     std::string GetDetector() const;
     
     void Info(ostream& s) const;
@@ -61,11 +61,11 @@ namespace irene {
 
   // INLINE methods
   inline const std::vector<std::pair<TLorentzVector,double> >& Track::GetHits() {return _hits;}
-  inline void Track::SetID(const int& id) {_id = id;}
+  inline void Track::SetID(int id) {_id = id;}
   inline int Track::GetID() const {return _id;}
-  inline void Track::SetLength(const double& length) {_track_length = length;}
+  inline void Track::SetLength(double length) {_track_length = length;}
   inline double Track::GetLength() const {return _track_length;}
-  inline void Track::SetDetector(const std::string& det) {_detector_name = det;}
+  inline void Track::SetDetector(std::string det) {_detector_name = det;}
   inline std::string Track::GetDetector() const {return _detector_name;}
 
 } // end namespace irene

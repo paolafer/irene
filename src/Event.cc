@@ -73,7 +73,7 @@ namespace irene {
 
     for (int itr=0; itr<tracks->GetLast()+1; ++itr) {
       Track* mytrack = (Track*)tracks->At(itr);
-      if (mytrack->GetDetector() == det) {
+      if (mytrack->GetDetectorName() == det) {
 	for (int ihit=0; ihit<mytrack->GetHits().size(); ++ihit) {
 	  std::pair<TLorentzVector,double> myhit = (mytrack->GetHits())[ihit];
 	  evthits.push_back(myhit);
@@ -135,7 +135,7 @@ namespace irene {
     for (unsigned int itrack=0; itrack<tracks->GetLast()+1; ++itrack) {
       Track* mytrack = (Track*)tracks->At(itrack);
       s << std::endl;
-      s << "Detector " << mytrack->GetDetector() << std::endl;
+      s << "Detector " << mytrack->GetDetectorName() << std::endl;
       s << std::endl;
       s << *mytrack <<std::endl;
     }

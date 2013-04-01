@@ -56,36 +56,28 @@ namespace irene {
 
  
 
-  void Particle::SetInitialVertex(const double x, const double y,
-				  const double z, const double t) 
-  { _initial_vertex.SetX(x);
-    _initial_vertex.SetY(y);
-    _initial_vertex.SetZ(z);
-    _initial_vertex.SetT(t);      
+  void Particle::SetInitialVertex(double x, double y,
+				  double z, double t) 
+  {
+    _initial_vertex.SetXYZT(x,y,z,t);      
   }
 
-   void Particle::SetDecayVertex(const double x, const double y,
-				  const double z, const double t) 
-  { _decay_vertex.SetX(x);
-    _decay_vertex.SetY(y);
-    _decay_vertex.SetZ(z);
-    _decay_vertex.SetT(t);      
-  }
+   void Particle::SetDecayVertex(double x, double y,
+				 double z, double t) 
+   {
+     _decay_vertex.SetXYZT(x,y,z,t); 
+   }
 
-   void Particle::SetInitialMomentum(const double x, const double y,
-				  const double z, const double t) 
-   { _initial_momentum.SetX(x);
-    _initial_momentum.SetY(y);
-    _initial_momentum.SetZ(z);
-    _initial_momentum.SetT(t);      
-  }
-
-   void Particle::SetDecayMomentum(const double x, const double y,
-				  const double z, const double t) 
-  { _decay_momentum.SetX(x);
-    _decay_momentum.SetY(y);
-    _decay_momentum.SetZ(z);
-    _decay_momentum.SetT(t);      
+   void Particle::SetInitialMomentum(double px, double py,
+				     double pz, double energy) 
+   { 
+     _initial_momentum.SetPxPyPzE(px,py,pz,energy);     
+   }
+  
+  void Particle::SetDecayMomentum(double px, double py,
+				  double pz, double energy) 
+  { 
+    _decay_momentum.SetPxPyPzE(px,py,pz,energy);
   }
 
   void Particle::SetPrimary(bool is_primary)
@@ -141,11 +133,11 @@ namespace irene {
     return _tracks;
   }
 
-  Track* Particle::GetTrack(std::string det)
+  Track* Particle::GetTrack(const std::string& det)
   {   
     for (int i=0; i< _tracks.GetLast()+1; ++i) {
       Track* tr = (Track*)_tracks.At(i);
-      if (tr->GetDetector() == det) {
+      if (tr->GetDetectorName() == det) {
 	 return tr;
       }
     }
@@ -340,7 +332,7 @@ namespace irene {
     for (int i=0; i<GetTracks().GetLast()+1; ++i) {
       Track* t = (Track*)_tracks.At(i);
       s << std::endl;
-      s << "Detector " << t->GetDetector() << std::endl;
+      s << "Detector " << t->GetDetectorName() << std::endl;
       s << std::endl;
       s << *t << std::endl;
       s << "Track length = " << t->GetLength() << std::endl;
@@ -349,7 +341,7 @@ namespace irene {
 
   }
     
-  void Particle::SetParticleName(std::string name) 
+  void Particle::SetParticleName(const std::string& name) 
   {
     _name = name;
 

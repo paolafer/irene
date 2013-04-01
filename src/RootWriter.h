@@ -14,6 +14,7 @@
 
 #include <TFile.h>
 #include <TTree.h>
+#include <TVectorD.h>
 #include "Event.h"
 
 namespace irene {
@@ -29,8 +30,10 @@ namespace irene {
   private:
     TFile* _file; ///< ROOT file where the output is written
     TTree* _evtTree; ///< ROOT tree where the events are stored
+    TVectorD* _mdata; ///< TList where metadata to be saved are stored
     Event* _event; ///< event to be stored
     bool _isopen; ///< true is the file is already open
+    
 
   public:
 
@@ -38,6 +41,7 @@ namespace irene {
     void Write(Event& event);
     void Close();
     bool IsOpen();
+    void WriteMetadata();
 
   };
 

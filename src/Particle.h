@@ -73,12 +73,12 @@ namespace irene {
 			double z, double t);
     TLorentzVector GetDecayVertex() const;
 
-    void SetInitialMomentum(double x, double y, 
-			   double z, double t);
+    void SetInitialMomentum(double px, double py, 
+			    double pz, double energy);
     TLorentzVector GetInitialMomentum() const;
 
-    void SetDecayMomentum(double x, double y, 
-			  double z, double t);
+    void SetDecayMomentum(double px, double py, 
+			  double pz, double energy);
     TLorentzVector GetDecayMomentum() const;
 
     void SetParticleID(int trackID);
@@ -97,7 +97,7 @@ namespace irene {
     void AddTrack(Track* track);    
     const TRefArray GetTracks() const;
     TRefArray& GetTracks();
-    Track* GetTrack(std::string det);
+    Track* GetTrack(const std::string& det);
 
     void AddDaughter(Particle* daughter);    
     const TRefArray GetDaughters() const;
@@ -105,21 +105,21 @@ namespace irene {
  
     void SetParameters(double m, double q, double l);
 
-    void SetParticleName(std::string name);
+    void SetParticleName(const std::string& name);
     void SetName(int code);
-    std::string Name() const;
+    const std::string& Name() const;
 
-    void SetInitialVolume(std::string vol);
-    std::string GetInitialVolume() const;
+    void SetInitialVolume(const std::string& vol);
+    const std::string& GetInitialVolume() const;
 
-    void SetDecayVolume(std::string vol);
-    std::string GetDecayVolume() const;
+    void SetDecayVolume(const std::string& vol);
+    const std::string& GetDecayVolume() const;
 
-    void SetCreatorProcess(std::string process);
-    std::string GetCreatorProcess() const;
+    void SetCreatorProcess(const std::string& process);
+    const std::string& GetCreatorProcess() const;
 
-    void AddProperty(std::string pname, double& pvalue);
-    double FindProperty(std::string pname);
+    void AddProperty(const std::string& pname, double pvalue);
+    double FindProperty(const std::string& pname);
 
     double GetMass() const;
     double GetCharge() const;
@@ -146,15 +146,15 @@ namespace irene {
   inline int Particle::GetParticleID() const {return _particleID;}
   inline void Particle::SetTrackLength(double length) {_track_length = length;}
   inline double Particle::GetTrackLength() const {return _track_length;}
-  inline std::string Particle::Name() const {return _name;}
-  inline void Particle::SetInitialVolume(std::string vol) {_origin_volume = vol;}
-  inline std::string Particle::GetInitialVolume() const {return _origin_volume;}
-  inline void Particle::SetDecayVolume(std::string vol) {_decay_volume = vol;}
-  inline std::string Particle::GetDecayVolume() const {return _decay_volume;}
-  inline void Particle::SetCreatorProcess(std::string process) {_creator_process = process;}
-  inline std::string Particle::GetCreatorProcess() const {return _creator_process;}
-  inline void Particle::AddProperty(std::string pname, double& pvalue) {_properties[pname] = pvalue;}
-  inline double Particle::FindProperty(const std::string pname) {return _properties[pname];}
+  inline const std::string& Particle::Name() const {return _name;}
+  inline void Particle::SetInitialVolume(const std::string& vol) {_origin_volume = vol;}
+  inline const std::string& Particle::GetInitialVolume() const {return _origin_volume;}
+  inline void Particle::SetDecayVolume(const std::string& vol) {_decay_volume = vol;}
+  inline const std::string& Particle::GetDecayVolume() const {return _decay_volume;}
+  inline void Particle::SetCreatorProcess(const std::string& process) {_creator_process = process;}
+  inline const std::string& Particle::GetCreatorProcess() const {return _creator_process;}
+  inline void Particle::AddProperty(const std::string& pname, double pvalue) {_properties[pname] = pvalue;}
+  inline double Particle::FindProperty(const std::string& pname) {return _properties[pname];}
   inline double Particle::GetMass() const {return _mass;}
   inline double Particle::GetCharge() const {return _charge;}
 

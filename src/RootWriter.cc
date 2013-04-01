@@ -16,6 +16,7 @@ namespace irene {
   {
     _file = 0;
     _evtTree = 0;   
+    _mdata = 0;
     _isopen = false;
   }
 
@@ -56,6 +57,11 @@ namespace irene {
   bool RootWriter::IsOpen()
   {
     return _isopen;
+  }
+
+  void RootWriter::WriteMetadata()
+  {
+    _evtTree->GetUserInfo()->Add(_mdata);
   }
 
 

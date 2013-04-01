@@ -54,7 +54,7 @@ namespace irene {
     TVector3 GetPosition() const;
 
     void SetDetectorName(std::string);
-    std::string GetDetectorName() const;
+    const std::string& GetDetectorName() const;
 
     void Info(ostream& s) const;
     
@@ -75,7 +75,7 @@ namespace irene {
   inline void SensorHit::SetPosition(double x, double y, double z) {_position.SetXYZ(x,y,z);}
   inline TVector3 SensorHit::GetPosition() const {return _position;}
   inline void SensorHit::SetDetectorName(std::string det_name) {_detector_name = det_name;}
-  inline std::string SensorHit::GetDetectorName() const {return _detector_name;}
+  inline const std::string& SensorHit::GetDetectorName() const {return _detector_name;}
 
 } // end namespace irene
 

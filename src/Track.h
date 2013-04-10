@@ -50,7 +50,7 @@ namespace irene {
     int GetID() const;
     void SetLength(double length);
     double GetLength() const;
-    void SetDetector(std::string det);
+    void SetDetector(const std::string& det);
     const std::string& GetDetectorName() const;
     
     void Info(ostream& s) const;
@@ -65,7 +65,7 @@ namespace irene {
   inline int Track::GetID() const {return _id;}
   inline void Track::SetLength(double length) {_track_length = length;}
   inline double Track::GetLength() const {return _track_length;}
-  inline void Track::SetDetector(std::string det) {_detector_name = det;}
+  inline void Track::SetDetector(const std::string& det) {_detector_name = det;}
   inline const std::string& Track::GetDetectorName() const {return _detector_name;}
 
 } // end namespace irene

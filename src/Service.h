@@ -9,8 +9,8 @@
 ///  Copyright (c) 2013 NEXT Collaboration
 // ----------------------------------------------------------------------------
 
-#ifndef __SERVICE__
-#define __SERVICE__
+#ifndef SERVICE_
+#define SERVICE_
 
 #include "Event.h"
 #include "RootWriter.h"

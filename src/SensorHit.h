@@ -9,8 +9,8 @@
 ///  Copyright (c) 2013 NEXT Collaboration
 // ----------------------------------------------------------------------------
 
-#ifndef __SENSORHIT_H__
-#define __SENSORHIT_H__
+#ifndef SENSORHIT_H_
+#define SENSORHIT_H_
 
 #include <iostream>
 #include <TObject.h>

@@ -9,8 +9,8 @@
 ///  Copyright (c) 2013 NEXT Collaboration
 // ----------------------------------------------------------------------------
 
-#ifndef __ROOTWRITER__
-#define __ROOTWRITER__
+#ifndef ROOTWRITER_
+#define ROOTWRITER_
 
 #include <TFile.h>
 #include <TTree.h>

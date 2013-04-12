@@ -47,6 +47,8 @@ namespace irene {
 
   public:
 
+    Event& operator=(const Event& right);
+    
     void AddSensorHit(SensorHit* hit);
     const TObjArray* GetSensorHits() const;
 

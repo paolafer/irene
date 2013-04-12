@@ -35,15 +35,23 @@ namespace irene {
 
   Event::Event(const Event& right)
   {
-    if (this != &right) {
+    *this = right;
+  } 
 
+  Event& Event::operator=(const Event& right) 
+  {
+    if (this != &right) {
       _sensor_hits = (TObjArray*)right._sensor_hits->Clone();
       _tracks = (TObjArray*)right._tracks->Clone();
       _particles = (TObjArray*)right._particles->Clone();
-
+      
       _eventID = right._eventID;
     }
-  } 
+
+    return *this;
+  }
+
+
 
   Event::~Event() {
     Clear();  

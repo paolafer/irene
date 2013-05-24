@@ -193,6 +193,8 @@ env.Install(idir_lib,libirene)
 env.Install(idir_inc, headers)
 env.Alias('install',idir_prefix)
 
+Clean(libirene, CONF_FILE)
+
 
 
 

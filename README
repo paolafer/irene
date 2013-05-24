@@ -15,9 +15,9 @@ So, in order to build IRENE, you need to have the following software installed:
 Installation
 ============
 
-Make sure you have the environment variable ROOTSYS defined as the ROOT installation path and ROOTSYS/bin is added to your PATH variable.
-
 scons PREFIX=/path/to/installation/folder install
+
+
 
 
  

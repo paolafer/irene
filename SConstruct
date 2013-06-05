@@ -81,6 +81,10 @@ vars.AddVariables(
                  'Path to ROOT libraries directory',
                  DEFAULT_PATH),
 
+    PathVariable('PREFIX',
+                 'Path to installation directory',
+                 DEFAULT_PATH),
+
     
     ## The following vars shouldn't be defined by users unless they 
     ## know what they are doing.
@@ -111,11 +115,7 @@ vars.AddVariables(
     
     ('LINKFLAGS',
      'User options passed to the linker.',
-     []),
-
-    ('PREFIX',
-     'Path to installation directory',
-     [DEFAULT_PATH])
+     [])
 
     )
 

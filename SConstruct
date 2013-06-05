@@ -29,6 +29,49 @@ DEFAULT_PATH = '.'
 ## pnext source code directories
 SRCDIR = []
 
+## write irene-config file
+def write_config(dir_prefix):
+    file = open("irene-config", 'w')
+    s = '#! /bin/sh' + '\n' + '#irene-config'
+    s = s + '\n' + '\n'
+    s = s + 'prefix=' + dir_prefix + '\n'
+    s = s + 'exec_prefix=${prefix}' + '\n'
+    s = s + 'includedir=${prefix}/include'
+    s = s + '\n' + '\n'
+    s = s + 'usage()' + '\n' + '{' + '\n' + '    cat  <<EOF' + '\n'
+    s = s + 'Usage: irene-config [OPTION]' + '\n' + '\n'
+    s = s + 'Known values for OPTION are:' + '\n'
+    s = s + '--prefix shw installation prefix' + '\n'
+    s = s + '--include print include path' + '\n'
+    s = s + '--ldflags print linker flags' + '\n'
+    s = s + '--libs print name of libreries to link against' + '\n'
+    s = s + '--help display this help and exit' + '\n'
+    s = s + '--version print version information' + '\n' + '\n'
+    s = s + 'EOF' + '\n' + '\n'
+    s = s + '    exit $1' + '\n' + '}' + '\n' + '\n'
+    s = s + 'if test $# -eq 0; then' + '\n' + '    usage 1' + '\n' + 'fi' + '\n'
+    s = s + 'while test $# -gt 0; do' + '\n' + '    case "$1" in' + '\n' + '    -*=*)' + '\n'
+    s = s + """        optarg=`echo "$1" | sed 's/[-_a-zA-Z0-9]*=//'`""" + '\n'  
+    s = s +  '        ;;' + '\n' + '    *)' 
+    s = s + '\n' + '        optarg=' + '\n' + '        ;;' + '    esac' + '\n' + '\n'
+    s = s + '    case "$1" in' + '\n'
+    s = s + '    --prefix)' + '\n' + '        echo ' + dir_prefix + '\n'
+    s = s + '        ;;' + '\n' + '\n'
+    s = s + '    --version)' + '\n' + '        echo ' + 'still to be implemented ' + '\n'
+    s = s + '        exit 0' + '\n' + '        ;;' + '\n' + '\n'
+    s = s +  '    --help)' + '\n' + '        usage 0' + '\n'
+    s = s + '        ;;' + '\n' + '\n'
+    s = s +  '    --include)' + '\n' + '        echo -I'+ dir_prefix + '/include' + '\n'
+    s = s + '        ;;' + '\n' + '\n'
+    s = s +  '    --ldflags)' + '\n' + '        echo -L'+ dir_prefix + '/lib' + '\n'
+    s = s + '        ;;' + '\n' + '\n'
+    s = s +  '    --libs)' + '\n' + '        echo -L'+ dir_prefix + '/lib' + ' -lirene' + '\n'
+    s = s + '        ;;' + '\n' + '\n'
+    s = s + '    *)' + '\n' + '        usage' +'\n' + '        exit 1' + '        ;;'
+    s = s + '    esac' + '\n' + '    shift' + '\n' + 'done' + '\n' + '\n' + 'exit 0'
+    file.write(s)
+    env.ParseConfig('chmod 755 irene-config')
+
 ## Some useful functions
 
 def filtered_glob(env, pattern, omit=[],
@@ -117,6 +160,10 @@ vars.AddVariables(
      'User options passed to the linker.',
      [])
 
+ #   ('PREFIX',
+ #    'Path to installation directory',
+ #    [DEFAULT_PATH])
+
     )
 
 
@@ -161,9 +208,7 @@ if not env['LIBPATH']:
 # save build variables to file
 vars.Save(CONF_FILE, env)
 
-## Step 1: user-defined paths
-
-####### Here are our installation paths: #########
+####### User-defined installation paths: #########
 idir_prefix = '$PREFIX'
 idir_lib    = '$PREFIX/lib'
 idir_inc    = '$PREFIX/include/irene'
@@ -191,8 +236,15 @@ libirene = env.SharedLibrary(idir_lib + '/irene', ['ireneDict.cxx']+sourcefiles)
 env.Install(idir_inc, headers)
 env.Alias('install',idir_prefix)
 
-print CONF_FILE
+w_prefix_dir = env['PREFIX']
 
+## If the installation directory is the current one, find its absoulte path
+if env['PREFIX'] == DEFAULT_PATH:
+   w_prefix_dir = os.getcwd()
+
+write_config(w_prefix_dir)
+
+## To remove all the file created during installation, when -c option is used
 if GetOption("clean"):
   env.Default('install')
 

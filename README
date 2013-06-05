@@ -15,10 +15,8 @@ So, in order to build IRENE, you need to have the following software installed:
 Installation
 ============
 
-scons
+scons PREFIX=/path/to/installation/folder install
 
+If you want to build irene in the current directory, you don't need to specify the PREFIX variable, that is:
 
-
-
- 
-
+scons install

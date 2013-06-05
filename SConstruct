@@ -20,15 +20,14 @@
 import os
 import atexit
 
-## File where the build variables are stored
-BUILDVARS_FILE = 'buildvars.scons'
+## File where the library and include paths are stored
+CONF_FILE = "irene.conf"
 
 ## Dummy default for path-like variables
 DEFAULT_PATH = '.'
 
 ## pnext source code directories
 SRCDIR = []
-
 
 ## Some useful functions
 
@@ -37,8 +36,6 @@ def filtered_glob(env, pattern, omit=[],
     return filter(
       lambda f: os.path.basename(f.path) not in omit,
       env.Glob(pattern))
-
-
 
 def Abort(message):
     """Outputs a message before exiting the script with an error."""
@@ -65,7 +62,7 @@ def rootcint(target, source, env):
 ## configured values of compilation flags ($CPPPATH, $LIBS, etc.).
 
 ## Create a Variables instance associated to  a file
-vars = Variables(BUILDVARS_FILE)
+vars = Variables(CONF_FILE)
 
 ## Definition of the variables
 vars.AddVariables(    
@@ -114,7 +111,11 @@ vars.AddVariables(
     
     ('LINKFLAGS',
      'User options passed to the linker.',
-     [])
+     []),
+
+    ('PREFIX',
+     'Path to installation directory',
+     [DEFAULT_PATH])
 
     )
 
@@ -158,7 +159,15 @@ if not env['LIBPATH']:
 
 
 # save build variables to file
-vars.Save(BUILDVARS_FILE, env)
+vars.Save(CONF_FILE, env)
+
+## Step 1: user-defined paths
+
+####### Here are our installation paths: #########
+idir_prefix = '$PREFIX'
+idir_lib    = '$PREFIX/lib'
+idir_inc    = '$PREFIX/include/irene'
+Export('env idir_prefix idir_lib idir_inc')
 
 ###################################################################### 
 ## BUILDING IRENE
@@ -174,24 +183,22 @@ headers = env.FilteredGlob('src/*.h', ['LinkDef.h'])
 bld = Builder(action = rootcint)
 env.Append(BUILDERS = {'Rootcint' : bld}) 
 env.Rootcint('ireneDict.cxx',headers+['src/LinkDef.h'])
-#env.Rootcint('ireneDict.cxx', headers)
 
 sourcefiles = Glob('src/*.cc')  
-env.SharedLibrary('lib/irene', ['ireneDict.cxx']+sourcefiles)
 
-## Install headers into include folder
-#for item in headers:
-#    print item
+libirene = env.SharedLibrary(idir_lib + '/irene', ['ireneDict.cxx']+sourcefiles)
 
-#if headers.index(Glob'src/LinkDef.h'):   
-#if 'src/LinkDef.h' in headers:
-#for item in headers:
-#   print "here"
-#   if item == 'src/LinkDef.h':
-#      headers.remove(item)
+env.Install(idir_inc, headers)
+env.Alias('install',idir_prefix)
 
-#print "After deleting"
-#for item in headers:
-#    print item 
+print CONF_FILE
 
-env.Install('include/irene', headers)
+if GetOption("clean"):
+  env.Default('install')
+
+Clean(libirene, CONF_FILE)
+
+
+
+
+

@@ -118,34 +118,19 @@ vars.AddVariables(
     ## The following vars shouldn't be defined by users unless they 
     ## know what they are doing.
 
-    ('CPPDEFINES',
-     'Preprocessor definitions.',
-     []),
-    
-    ('CCFLAGS',
-     'General options passed to the compiler.',
-     []),
-
-    ('CPPFLAGS',
-     'User-specified preprocessor options.',
-     []),
-    
     ('CPPPATH',
      'List of directories where the include headers are located.',
      []),
-    
+
     ('LIBPATH',
      'List of directories where the linked libraries are located.',
      []),
-    
-    ('LIBS',
+     
+     ('LIBS',
      'List of libraries to link against.',
-     []),
-    
-    ('LINKFLAGS',
-     'User options passed to the linker.',
      [])
-
+    
+  
     )
 
 
@@ -160,15 +145,27 @@ env.AddMethod(filtered_glob, "FilteredGlob");
 ## If the LIBPATH buildvar is not defined, the configure step has
 ## not been run yet
 if not env['LIBPATH']: 
+   
+   ## Create a Configure object that provides autoconf-like functionality
+    conf = Configure(env, conf_dir='.sconf', log_file='.sconf/sconf.log')
 
     ## ROOT ..........................................................
 
     try:
-        env.ParseConfig('root-config --cflags')
-        env.ParseConfig('root-config --libs')
+        env.ParseConfig('root-config --cflags --libs')
     except OSError:
         Abort('ROOT headers and libraries could not be located.')
 
+     ## Check if headers are available in the path just found.
+    if not conf.CheckCXXHeader('TFile.h'):
+        Abort('ROOT headers not found.')
+
+     ## Check if libraries are available in the path just found.
+    if not conf.CheckLib(library='Core', language='CXX', autoadd=0):
+        Abort('ROOT libraries not found.')
+
+    conf.Finish()
+	
 # save build variables to file
 vars.Save(CONF_FILE, env)
 
@@ -183,7 +180,6 @@ idir_inc    = env['PREFIX'] + '/include/irene'
 
 env['CXXCOMSTR']  = "Compiling $SOURCE"
 env['LINKCOMSTR'] = "Linking $TARGET"
-env['CPPPATH'] += ['src']
 
 headers = env.FilteredGlob('src/*.h', ['LinkDef.h'])
 

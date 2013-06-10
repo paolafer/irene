@@ -41,7 +41,7 @@ def write_config(dir_prefix):
     s = s + 'usage()' + '\n' + '{' + '\n' + '    cat  <<EOF' + '\n'
     s = s + 'Usage: irene-config [OPTION]' + '\n' + '\n'
     s = s + 'Known values for OPTION are:' + '\n'
-    s = s + '--prefix shw installation prefix' + '\n'
+    s = s + '--prefix show installation prefix' + '\n'
     s = s + '--include print include path' + '\n'
     s = s + '--ldflags print linker flags' + '\n'
     s = s + '--libs print name of libreries to link against' + '\n'
@@ -160,10 +160,6 @@ vars.AddVariables(
      'User options passed to the linker.',
      [])
 
- #   ('PREFIX',
- #    'Path to installation directory',
- #    [DEFAULT_PATH])
-
     )
 
 
@@ -208,15 +204,14 @@ if not env['LIBPATH']:
 # save build variables to file
 vars.Save(CONF_FILE, env)
 
-####### User-defined installation paths: #########
-idir_prefix = '$PREFIX'
-idir_lib    = '$PREFIX/lib'
-idir_inc    = '$PREFIX/include/irene'
-Export('env idir_prefix idir_lib idir_inc')
-
 ###################################################################### 
 ## BUILDING IRENE
 ######################################################################
+
+####### Installation paths: #########
+idir_prefix = env['PREFIX']
+idir_lib    = env['PREFIX'] + '/lib'
+idir_inc    = env['PREFIX'] + '/include/irene'
 
 env['CXXCOMSTR']  = "Compiling $SOURCE"
 env['LINKCOMSTR'] = "Linking $TARGET"
@@ -229,8 +224,8 @@ bld = Builder(action = rootcint)
 env.Append(BUILDERS = {'Rootcint' : bld}) 
 env.Rootcint('ireneDict.cxx',headers+['src/LinkDef.h'])
 
+## Create the library
 sourcefiles = Glob('src/*.cc')  
-
 libirene = env.SharedLibrary(idir_lib + '/irene', ['ireneDict.cxx']+sourcefiles)
 
 env.Install(idir_inc, headers)

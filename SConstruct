@@ -70,7 +70,7 @@ def write_config(dir_prefix):
     s = s + '    *)' + '\n' + '        usage' +'\n' + '        exit 1' + '        ;;'
     s = s + '    esac' + '\n' + '    shift' + '\n' + 'done' + '\n' + '\n' + 'exit 0'
     file.write(s)
-    env.ParseConfig('chmod 755 irene-config')
+   
 
 ## Some useful functions
 
@@ -202,6 +202,8 @@ if env['PREFIX'] == DEFAULT_PATH:
    w_prefix_dir = os.getcwd()
 
 write_config(w_prefix_dir)
+env.Execute(Chmod('irene-config', 0755))
+
 
 ## To remove all the file created during installation, when -c option is used
 if GetOption("clean"):

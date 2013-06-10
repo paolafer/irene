@@ -110,20 +110,6 @@ vars = Variables(CONF_FILE)
 ## Definition of the variables
 vars.AddVariables(    
     
-    ## ROOT
-
-    PathVariable('ROOTSYS',
-                 'Path to ROOT installation.',
-                 DEFAULT_PATH),
-    
-    PathVariable('ROOT_INCDIR',
-                 'Path to ROOT headers directory.',
-                 DEFAULT_PATH),
-
-    PathVariable('ROOT_LIBDIR',
-                 'Path to ROOT libraries directory',
-                 DEFAULT_PATH),
-
     PathVariable('PREFIX',
                  'Path to installation directory',
                  DEFAULT_PATH),
@@ -175,31 +161,13 @@ env.AddMethod(filtered_glob, "FilteredGlob");
 ## not been run yet
 if not env['LIBPATH']: 
 
-    ## Create a Configure object that provides autoconf-like functionality
-    conf = Configure(env, conf_dir='.sconf', log_file='.sconf/sconf.log')
-
-
     ## ROOT ..........................................................
-        
-    ROOTCONF = DEFAULT_PATH # full path to root-config
-
-    if env['ROOTSYS'] != DEFAULT_PATH:
-        ROOT_BINDIR = env['ROOTSYS'] + '/bin/'
-    elif env['ENV']['ROOTSYS']:
-        ROOT_BINDIR = env['ENV']['ROOTSYS'] + '/bin/'
-    else:
-        ROOT_BINDIR = ''
 
     try:
-        env.ParseConfig(ROOT_BINDIR + 'root-config --cflags')
-        env.ParseConfig(ROOT_BINDIR + 'root-config --libs')
+        env.ParseConfig('root-config --cflags')
+        env.ParseConfig('root-config --libs')
     except OSError:
         Abort('ROOT headers and libraries could not be located.')
-    
-    
- 
-    env = conf.Finish()
-
 
 # save build variables to file
 vars.Save(CONF_FILE, env)

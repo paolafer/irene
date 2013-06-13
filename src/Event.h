@@ -63,6 +63,7 @@ namespace irene {
     void SetID(int id); 
     int GetID() const;
 
+    /// This method gives a collection of hits, disregarding of the Track they belong to
     void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string det);
 
     void Clear();
@@ -85,4 +86,4 @@ namespace irene {
 
 ostream& operator << (ostream& s, const irene::Event& ev);
 
-#endif // __EVENT_H__
+#endif // EVENT_H_

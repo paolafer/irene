@@ -33,7 +33,7 @@ namespace irene {
     ~Track();
 
   private:
-    std::vector<std::pair<TLorentzVector,double> > _hits; ///< true hits in the track
+    std::vector<std::pair<TLorentzVector,double> > _hits; ///< true hits in the track. The TLorentzVector is the position and the time of the hit, and the double is the energy
     TRef _particle; ///< reference to the particle the track is created by
     int _id; ///< identification number for the track. It should be the same as its particles's. Thus, if the particle has more than one track, two or more tracks can have the same ID number.
     double _track_length; ///< total length

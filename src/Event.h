@@ -64,7 +64,7 @@ namespace irene {
     int GetID() const;
 
     /// This method gives a collection of hits, disregarding of the Track they belong to
-    void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string det);
+    void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string det) const;
 
     void Clear();
 

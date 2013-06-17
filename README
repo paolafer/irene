@@ -17,4 +17,9 @@ Installation
 
 scons PREFIX=/path/to/installation/folder install
 
-If you want to build irene in the current directory, you don't need to specify the PREFIX variable
+If you want to build irene in the current directory, you don't need to specify the PREFIX variable.
+
+The building creates an irene-config file in the bin directory under the installation path. Make sure you add 
+/path/to/installation/folder/bin to your $PATH variable and then check your installation doing
+
+irene-config

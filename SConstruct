@@ -31,7 +31,10 @@ SRCDIR = []
 
 ## write irene-config file
 def write_config(dir_prefix):
-    file = open("irene-config", 'w')
+    if not os.path.exists(dir_prefix+'/bin'):
+       os.makedirs(dir_prefix+'/bin')
+    file_name = dir_prefix+'/bin/irene-config'
+    file = open(file_name, 'w')
     s = '#! /bin/sh' + '\n' + '#irene-config'
     s = s + '\n' + '\n'
     s = s + 'prefix=' + dir_prefix + '\n'
@@ -126,7 +129,7 @@ vars.AddVariables(
      'List of directories where the linked libraries are located.',
      []),
      
-     ('LIBS',
+    ('LIBS',
      'List of libraries to link against.',
      [])
     
@@ -177,6 +180,7 @@ vars.Save(CONF_FILE, env)
 idir_prefix = env['PREFIX']
 idir_lib    = env['PREFIX'] + '/lib'
 idir_inc    = env['PREFIX'] + '/include/irene'
+idir_bin    = env['PREFIX'] + '/bin'
 
 env['CXXCOMSTR']  = "Compiling $SOURCE"
 env['LINKCOMSTR'] = "Linking $TARGET"
@@ -202,7 +206,9 @@ if env['PREFIX'] == DEFAULT_PATH:
    w_prefix_dir = os.getcwd()
 
 write_config(w_prefix_dir)
-env.Execute(Chmod('irene-config', 0755))
+
+env.Execute(Chmod(w_prefix_dir+'/bin/irene-config', 0755))
+
 
 
 ## To remove all the file created during installation, when -c option is used
@@ -210,6 +216,7 @@ if GetOption("clean"):
   env.Default('install')
 
 Clean(libirene, CONF_FILE)
+Clean(libirene, idir_bin+'/irene-config')
 
 
 

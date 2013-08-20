@@ -21,7 +21,7 @@ namespace irene {
   Track::Track()
   {
     _id = 0;
-    _track_length = 0;
+    //  _track_length = 0;
     _particle = 0;
     _detector_name = "unknown";
     _hits.clear();
@@ -31,7 +31,7 @@ namespace irene {
   {
     _detector_name = detector;
     _id = 0;
-    _track_length = 0;
+    //   _track_length = 0;
     _particle = 0;
     _hits.clear();
   }

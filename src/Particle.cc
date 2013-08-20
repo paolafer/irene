@@ -335,8 +335,9 @@ namespace irene {
       s << "Detector " << t->GetDetectorName() << std::endl;
       s << std::endl;
       s << *t << std::endl;
-      s << "Track length = " << t->GetLength() << std::endl;
     }
+
+    s << "Length of the total associated track (mm) = " << GetTrackLength()/mm << std::endl;
 
 
   }

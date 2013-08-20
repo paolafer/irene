@@ -36,7 +36,7 @@ namespace irene {
     std::vector<std::pair<TLorentzVector,double> > _hits; ///< true hits in the track. The TLorentzVector is the position and the time of the hit, and the double is the energy
     TRef _particle; ///< reference to the particle the track is created by
     int _id; ///< identification number for the track. It should be the same as its particles's. Thus, if the particle has more than one track, two or more tracks can have the same ID number.
-    double _track_length; ///< total length
+    //    double _track_length; ///< total length
     std::string _detector_name; ///< detector where hits have been produced
 
   public:
@@ -49,8 +49,8 @@ namespace irene {
     Particle* GetParticle();
     void SetID(int id);
     int GetID() const;
-    void SetLength(double length);
-    double GetLength() const;
+    // void SetLength(double length);
+    //  double GetLength() const;
     void SetDetector(const std::string& det);
     const std::string& GetDetectorName() const;
     
@@ -64,8 +64,8 @@ namespace irene {
   inline const std::vector<std::pair<TLorentzVector,double> >& Track::GetHits() {return _hits;}
   inline void Track::SetID(int id) {_id = id;}
   inline int Track::GetID() const {return _id;}
-  inline void Track::SetLength(double length) {_track_length = length;}
-  inline double Track::GetLength() const {return _track_length;}
+  // inline void Track::SetLength(double length) {_track_length = length;}
+  // inline double Track::GetLength() const {return _track_length;}
   inline void Track::SetDetector(const std::string& det) {_detector_name = det;}
   inline const std::string& Track::GetDetectorName() const {return _detector_name;}
 

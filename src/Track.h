@@ -56,7 +56,7 @@ namespace irene {
     
     void Info(ostream& s) const;
     
-    ClassDef(Track,2);
+    ClassDef(Track,3);
     
   };
 

@@ -20,7 +20,7 @@ namespace irene {
 
   Track::Track()
   {
-    _id = 0;
+    // _id = 0;
     //  _track_length = 0;
     _particle = 0;
     _detector_name = "unknown";
@@ -30,7 +30,7 @@ namespace irene {
   Track::Track(std::string& detector)
   {
     _detector_name = detector;
-    _id = 0;
+    // _id = 0;
     //   _track_length = 0;
     _particle = 0;
     _hits.clear();

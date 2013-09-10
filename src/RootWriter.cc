@@ -16,7 +16,6 @@ namespace irene {
   {
     _file = 0;
     _evtTree = 0;   
-    _mdata = 0;
     _isopen = false;
   }
 
@@ -37,7 +36,7 @@ namespace irene {
   {
     if (!_file || !_file->IsOpen())
       return;
-
+    
     _file->Write();
     _file->Close();
 
@@ -59,9 +58,9 @@ namespace irene {
     return _isopen;
   }
 
-  void RootWriter::WriteMetadata()
+  void RootWriter::WriteMetadata(MacrosInfo* mdata)
   {
-    _evtTree->GetUserInfo()->Add(_mdata);
+    _evtTree->GetUserInfo()->Add(mdata);
   }
 
 

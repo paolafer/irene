@@ -9,6 +9,7 @@
 // ---------------------------------------------------------------------------- 
 
 #include "RootWriter.h"
+#include "ParameterInfo.h"
 
 namespace irene {
 
@@ -58,7 +59,7 @@ namespace irene {
     return _isopen;
   }
 
-  void RootWriter::WriteMetadata(MacrosInfo* mdata)
+  void RootWriter::WriteMetadata(ParameterInfo* mdata)
   {
     _evtTree->GetUserInfo()->Add(mdata);
   }

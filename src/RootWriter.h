@@ -15,7 +15,8 @@
 #include <TFile.h>
 #include <TTree.h>
 #include "Event.h"
-#include "MacrosInfo.h"
+
+namespace irene {class ParameterInfo;}
 
 namespace irene {
 
@@ -40,7 +41,7 @@ namespace irene {
     void Write(Event& event);
     void Close();
     bool IsOpen();
-    void WriteMetadata(MacrosInfo* mdata);
+    void WriteMetadata(ParameterInfo* mdata);
 
   };
 

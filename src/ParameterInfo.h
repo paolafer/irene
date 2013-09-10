@@ -11,7 +11,7 @@ namespace irene {
   public:
     /// Constructor
     ParameterInfo() {}
-  ParameterInfo(const char* name, const char* title): TNamed(name, title) {}
+  ParameterInfo(const char* name): TNamed(name, name) {}
     /// Destructor
     ~ParameterInfo() {}
     

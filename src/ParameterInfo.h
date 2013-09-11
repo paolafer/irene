@@ -1,3 +1,14 @@
+// ----------------------------------------------------------------------------
+///  \file   ParameterInfo.h
+///  \brief  Class to store a parameter with its value
+///
+///  \author   <paola.ferrario@ific.uv.es>
+///  \date     11 Sept 2013
+///  \version  $Id$
+///
+///  Copyright (c) 2013 NEXT Collaboration
+// ----------------------------------------------------------------------------
+
 #ifndef PARAMETERINFO_H
 #define PARAMETERINFO_H
 
@@ -5,7 +16,9 @@
 #include <TObject.h>
 
 namespace irene {
-
+  /// Class to store a parameter with its value. 
+  /// The name of the parameter is the argument of the constructor
+  /// while its value is set through the SetContent() method.
   class ParameterInfo: public TNamed
   {
   public:

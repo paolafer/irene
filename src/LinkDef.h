@@ -1,3 +1,12 @@
+/ ----------------------------------------------------------------------------
+//  $Id$
+//
+//  Author:  <paola.ferrario@ific.uv.es>
+//  Created: 14 Feb 2013
+//  
+//  Copyright (c) 2013 NEXT Collaboration
+// ---------------------------------------------------------------------------- 
+
 #ifdef __CINT__
 
 #pragma link off all globals;

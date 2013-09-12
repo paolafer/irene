@@ -201,6 +201,8 @@ env.Alias('install',idir_prefix)
 
 w_prefix_dir = env['PREFIX']
 
+w_prefix_dir = os.path.abspath(w_prefix_dir)
+
 ## If the installation directory is the current one, find its absolute path
 if env['PREFIX'] == DEFAULT_PATH:
    w_prefix_dir = os.getcwd()

@@ -37,7 +37,7 @@ namespace irene {
 
   public:
 
-    void Open(const std::string filename, std::string option);
+    bool Open(const std::string filename, std::string option);
     void Write(Event& event);
     void Close();
     bool IsOpen();

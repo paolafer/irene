@@ -34,18 +34,43 @@ namespace irene {
     _decay_vertex.SetXYZT(0.,0.,0.,0.);
     _initial_momentum.SetXYZT(0.,0.,0.,0.);
     _decay_momentum.SetXYZT(0.,0.,0.,0.);
-    SetParameters(0,0,-1);
     _properties.clear();
   }
 
-  Particle::Particle(int pdg_code)
+  Particle::Particle(int pdg_code) : _particleID(0), _primary(false), 
+				     _has_mother(false)
   {
+    _tracks = 0;
+    _daughters = 0;
+    _mother = 0;
+    _decay_volume = "unknown";
+    _origin_volume = "unknown";
+    _creator_process = "unknown";
+    _initial_vertex.SetXYZT(0.,0.,0.,0.);
+    _decay_vertex.SetXYZT(0.,0.,0.,0.);
+    _initial_momentum.SetXYZT(0.,0.,0.,0.);
+    _decay_momentum.SetXYZT(0.,0.,0.,0.);
+    _properties.clear();
+     
     SetPDGcode(pdg_code);
     SetName(pdg_code);
   }
 
-  Particle::Particle(std::string name)
+  Particle::Particle(std::string name) : _particleID(0), _primary(false), 
+					 _has_mother(false)
   {
+    _tracks = 0;
+    _daughters = 0;
+    _mother = 0;
+    _decay_volume = "unknown";
+    _origin_volume = "unknown";
+    _creator_process = "unknown";
+    _initial_vertex.SetXYZT(0.,0.,0.,0.);
+    _decay_vertex.SetXYZT(0.,0.,0.,0.);
+    _initial_momentum.SetXYZT(0.,0.,0.,0.);
+    _decay_momentum.SetXYZT(0.,0.,0.,0.);
+    _properties.clear();
+
     SetParticleName(name);
   }
 

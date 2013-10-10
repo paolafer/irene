@@ -45,7 +45,6 @@ namespace irene {
     TLorentzVector _decay_momentum; ///< final momentum and energy
     int _particleID; ///< identification number coming from the Geant4 simulation
     bool _primary; ///< true if the particle is the one directly generated in Geant4
-    bool _has_mother; ///< true if the particle comes from another particle through some process
     TRef _mother; ///< reference to the mother particle
     TRefArray _tracks; ///< reference to the tracks that contains the true hits of the particle
     TRefArray _daughters; ///< array of references to the secondary particles
@@ -131,7 +130,7 @@ namespace irene {
 
     void Info(ostream& s) const;
     
-    ClassDef(Particle,3);
+    ClassDef(Particle,4);
 
   };
 

@@ -19,7 +19,7 @@ ClassImp(irene::Particle);
 namespace irene {
 
   Particle::Particle() : _PDGcode(0), _particleID(0),
-			 _primary(false), _has_mother(false),
+			 _primary(true),
 			 _mass(0), _charge(0),
 			 _lifetime(0)
   {
@@ -33,12 +33,11 @@ namespace irene {
     _initial_vertex.SetXYZT(0.,0.,0.,0.);
     _decay_vertex.SetXYZT(0.,0.,0.,0.);
     _initial_momentum.SetXYZT(0.,0.,0.,0.);
-    _decay_momentum.SetXYZT(0.,0.,0.,0.);
+    _decay_momentum.SetXYZT(0.,0.,0.,_mass);
     _properties.clear();
   }
 
-  Particle::Particle(int pdg_code) : _particleID(0), _primary(false), 
-				     _has_mother(false)
+  Particle::Particle(int pdg_code) : _particleID(0), _primary(true)	     
   {
     _tracks = 0;
     _daughters = 0;
@@ -49,15 +48,15 @@ namespace irene {
     _initial_vertex.SetXYZT(0.,0.,0.,0.);
     _decay_vertex.SetXYZT(0.,0.,0.,0.);
     _initial_momentum.SetXYZT(0.,0.,0.,0.);
-    _decay_momentum.SetXYZT(0.,0.,0.,0.);
     _properties.clear();
      
     SetPDGcode(pdg_code);
     SetName(pdg_code);
+
+    _decay_momentum.SetXYZT(0.,0.,0.,_mass);
   }
 
-  Particle::Particle(std::string name) : _particleID(0), _primary(false), 
-					 _has_mother(false)
+  Particle::Particle(std::string name) : _particleID(0), _primary(true)
   {
     _tracks = 0;
     _daughters = 0;
@@ -68,10 +67,11 @@ namespace irene {
     _initial_vertex.SetXYZT(0.,0.,0.,0.);
     _decay_vertex.SetXYZT(0.,0.,0.,0.);
     _initial_momentum.SetXYZT(0.,0.,0.,0.);
-    _decay_momentum.SetXYZT(0.,0.,0.,0.);
     _properties.clear();
 
     SetParticleName(name);
+
+    _decay_momentum.SetXYZT(0.,0.,0.,_mass);
   }
 
   Particle::~Particle()
@@ -108,7 +108,6 @@ namespace irene {
   void Particle::SetPrimary(bool is_primary)
   {
     _primary = is_primary;
-    _has_mother = false;
   }
   
   bool Particle::IsPrimary()
@@ -122,7 +121,6 @@ namespace irene {
   void Particle::SetMother(irene::Particle* mother) 
   {
     _mother = mother;
-    _has_mother = true;
   }
 
   const Particle* Particle::GetMother() const
@@ -312,14 +310,14 @@ namespace irene {
       s << "particle is primary " << std::endl;
     } else {
       s << "particle is secondary" << std::endl;
-      if (_has_mother) {
-	s << "mother of particle is " << this->GetMother()->Name() << std::endl;
-	s << "with 3 momentum (MeV) ="  << std::endl;
-	s << "(" << GetMother()->GetInitialMomentum().X()/MeV << "," << 
-	  GetMother()->GetInitialMomentum().Y()/MeV << "," << 
-	  GetMother()->GetInitialMomentum().Z()/MeV << ")" << std::endl;
-	s << "and energy (MeV)= " << this->GetMother()->Energy()/MeV << std::endl;
-      }
+     
+      s << "mother of particle is " << this->GetMother()->Name() << std::endl;
+      s << "with 3 momentum (MeV) ="  << std::endl;
+      s << "(" << GetMother()->GetInitialMomentum().X()/MeV << "," << 
+	GetMother()->GetInitialMomentum().Y()/MeV << "," << 
+	GetMother()->GetInitialMomentum().Z()/MeV << ")" << std::endl;
+      s << "and energy (MeV)= " << this->GetMother()->Energy()/MeV << std::endl;
+      
     }
 
      s << " List of additional properties "

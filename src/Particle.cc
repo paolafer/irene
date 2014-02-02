@@ -117,6 +117,14 @@ namespace irene {
     else
       return false;    
   }
+
+  bool Particle::IsPrimary() const
+  {
+    if (_primary == true) 
+      return true;
+    else
+      return false;    
+  }
   
   void Particle::SetMother(irene::Particle* mother) 
   {

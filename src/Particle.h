@@ -88,6 +88,7 @@ namespace irene {
     
     void SetPrimary(bool is_primary);
     bool IsPrimary();
+    bool IsPrimary() const;
 
     void SetMother(Particle* mother);
     const Particle* GetMother() const;

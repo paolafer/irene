@@ -52,6 +52,16 @@ namespace irene {
   }
 
 
+  const std::vector<std::pair<TLorentzVector,double> >& Track::GetHits() const 
+  {
+    return _hits;
+  }
+
+  std::vector<std::pair<TLorentzVector,double> >& Track::GetHits() 
+  {
+    return _hits;
+  }
+
   void Track::SetParticle(Particle* particle) 
   {
     _particle = particle;

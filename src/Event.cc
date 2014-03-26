@@ -120,6 +120,7 @@ namespace irene {
 
     return trks;
   }
+
   std::vector<const irene::Particle*> Event::Particles() const
   {
     size_t n_p = _particles->GetEntries();

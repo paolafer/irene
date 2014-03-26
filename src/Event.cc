@@ -90,6 +90,7 @@ namespace irene {
     }
    
   }
+
   
   void Event::Clear()
   {
@@ -104,6 +105,33 @@ namespace irene {
     }
      
     _eventID = 0;
+  }
+
+  std::vector<const irene::Track*> Event::Tracks() const
+  {
+    size_t n_itrks = _tracks->GetEntries();
+    std::vector<const Track*> trks;
+
+    for (size_t it = 0; it < n_itrks; ++it)
+    { 
+      const Track* itrk = dynamic_cast<const Track*> (_tracks->At(it)) ; 
+      trks.push_back(itrk);
+    }
+
+    return trks;
+  }
+  std::vector<const irene::Particle*> Event::Particles() const
+  {
+    size_t n_p = _particles->GetEntries();
+    std::vector<const Particle*> parts;
+
+    for (size_t it = 0; it < n_p; ++it)
+    { 
+      const Particle* ip = dynamic_cast<const Particle*> (_particles->At(it)) ; 
+      parts.push_back(ip);
+    }
+
+    return parts;
   }
 
   void Event::Info(ostream& s) const

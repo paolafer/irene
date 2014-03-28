@@ -54,9 +54,9 @@ namespace irene {
 
     void AddTrack(Track* track);
     const TObjArray* GetTracks() const;
-
     std::vector<const irene::Track*> Tracks() const;
-
+    std::vector<const irene::Track*> Tracks(std::string det) const;
+  
     void AddParticle(Particle* particle);
  
     const TObjArray* GetParticles() const; 

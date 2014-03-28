@@ -24,6 +24,7 @@ namespace irene {
     _sensor_hits = 0;
     _tracks = 0;
     _particles = 0;
+     
   }
 
   Event::Event(int id) : _eventID(id) 
@@ -44,7 +45,7 @@ namespace irene {
       _sensor_hits = (TObjArray*)right._sensor_hits->Clone();
       _tracks = (TObjArray*)right._tracks->Clone();
       _particles = (TObjArray*)right._particles->Clone();
-      
+    
       _eventID = right._eventID;
     }
 
@@ -111,16 +112,30 @@ namespace irene {
   {
     size_t n_itrks = _tracks->GetEntries();
     std::vector<const Track*> trks;
-
-    for (size_t it = 0; it < n_itrks; ++it)
-    { 
+    
+    for (size_t it = 0; it < n_itrks; ++it) { 
       const Track* itrk = dynamic_cast<const Track*> (_tracks->At(it)) ; 
       trks.push_back(itrk);
     }
-
+    
     return trks;
   }
 
+  std::vector<const irene::Track*> Event::Tracks(std::string det) const
+  {
+    size_t n_itrks = _tracks->GetEntries();
+    std::vector<const Track*> trks;
+    
+    for (size_t it = 0; it < n_itrks; ++it) { 
+      const Track* itrk = dynamic_cast<const Track*> (_tracks->At(it)) ; 
+      if (itrk->GetDetectorName() == det) {
+	trks.push_back(itrk);
+      }
+    }
+    
+    return trks;
+  }
+  
   std::vector<const irene::Particle*> Event::Particles() const
   {
     size_t n_p = _particles->GetEntries();

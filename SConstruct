@@ -68,7 +68,7 @@ def write_config(dir_prefix):
     s = s + '        ;;' + '\n' + '\n'
     s = s +  '    --libdir)' + '\n' + '        echo -L'+ dir_prefix + '/lib' + '\n'
     s = s + '        ;;' + '\n' + '\n'
-    s = s +  '    --libs)' + '\n' + '        echo ' + ' -lirene' + '\n'
+    s = s +  '    --libs)' + '\n' + '        echo -L'+ dir_prefix + '/lib' + ' -lirene' + '\n'
     s = s + '        ;;' + '\n' + '\n'
     s = s + '    *)' + '\n' + '        usage' +'\n' + '        exit 1' + '        ;;'
     s = s + '    esac' + '\n' + '    shift' + '\n' + 'done' + '\n' + '\n' + 'exit 0'

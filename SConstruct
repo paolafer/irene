@@ -175,7 +175,7 @@ vars.Save(CONF_FILE, env)
 ###################################################################### 
 ## BUILDING IRENE
 ######################################################################
-
+env.Append(CCFLAGS = '-g')
 ####### Installation paths: #########
 idir_prefix = env['PREFIX']
 idir_lib    = env['PREFIX'] + '/lib'

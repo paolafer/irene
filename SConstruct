@@ -16,6 +16,12 @@
 ###  command-line (or the BUILDVARS_FILE) the system path to any
 ###  dependency.
 ### ------------------------------------------------------------------
+### La citta' per chi passa senza entrarci e' una, e un'altra per chi ne e' preso
+### e non ne esce; una e' la citta' in cui s'arriva per la prima volta, un'altra 
+### quella che si lascia per non tornare; ognuna merita un nome diverso;
+### forse di Irene ho gia' parlato sotto altri nomi; forse non ho parlato che di Irene.
+### Italo Calvino, Le citta' invisibili.
+### ------------------------------------------------------------------
 
 import os
 import atexit

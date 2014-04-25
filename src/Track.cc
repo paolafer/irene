@@ -85,7 +85,7 @@ namespace irene {
     return dynamic_cast<Particle*> (_particle.GetObject());
   }
 
-  void Track::Info(ostream& s) const
+  void Track::IInfo(ostream& s) const
   {
     for (int i=0; i<_hits.size(); ++i) {
       std::pair<TLorentzVector,double> myhit = _hits[i];
@@ -102,6 +102,6 @@ namespace irene {
 }  // namespace irene
 
 ostream& operator << (ostream& s, const irene::Track& tr) {
-  tr.Info(s);
+  tr.IInfo(s);
   return s; 
 }

@@ -129,7 +129,7 @@ namespace irene {
     double Energy() const;
     double Momentum() const;
 
-    void Info(ostream& s) const;
+    void IInfo(ostream& s) const;
     
     ClassDef(Particle,4);
 

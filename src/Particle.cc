@@ -283,7 +283,7 @@ namespace irene {
   }
 
 
-  void Particle::Info(ostream& s) const
+  void Particle::IInfo(ostream& s) const
   {
     s << std::endl;    
     s << "Particle name = " << _name << ", PDG code = " << _PDGcode << 
@@ -505,7 +505,7 @@ namespace irene {
 }
 
 ostream& operator << (ostream& s, const irene::Particle& p) {
-  p.Info(s);
+  p.IInfo(s);
   return s; 
 }
 

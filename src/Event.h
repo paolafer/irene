@@ -69,9 +69,9 @@ namespace irene {
     /// This method gives a collection of hits, disregarding of the Track they belong to
     void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string det) const;
 
-    void Clear();
+    void IClear();
 
-    void Info(ostream& s) const;
+    void IInfo(ostream& s) const;
    
     ClassDef(Event,1);
     

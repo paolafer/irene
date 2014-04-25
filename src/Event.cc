@@ -55,7 +55,7 @@ namespace irene {
 
 
   Event::~Event() {
-    Clear();  
+    IClear();  
     delete _sensor_hits;
     delete _tracks;
     delete _particles;	
@@ -93,7 +93,7 @@ namespace irene {
   }
 
   
-  void Event::Clear()
+  void Event::IClear()
   {
     if (_sensor_hits) {
       _sensor_hits->Delete();
@@ -150,7 +150,7 @@ namespace irene {
     return parts;
   }
 
-  void Event::Info(ostream& s) const
+  void Event::IInfo(ostream& s) const
   {
     s << std::endl;    
     s << "event number = " << GetID() << std::endl;
@@ -207,6 +207,6 @@ namespace irene {
 } // end namespace irene
 
 ostream& operator << (ostream& s, const irene::Event& ev) {
-  ev.Info(s);
+  ev.IInfo(s);
   return s; 
 }

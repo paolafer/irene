@@ -76,22 +76,32 @@ namespace irene {
     _particles->AddLast(particle);
   }
 
-  void Event::FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string det) const
+  void Event::FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, 
+                            std::string det) const
   {
     const TObjArray* tracks = GetTracks();
 
-    for (int itr=0; itr<tracks->GetLast()+1; ++itr) {
+    for (int itr=0; itr<tracks->GetLast()+1; ++itr) 
+    {
       Track* mytrack = (Track*)tracks->At(itr);
-      if (mytrack->GetDetectorName() == det) {
-	for (int ihit=0; ihit<mytrack->GetHits().size(); ++ihit) {
-	  std::pair<TLorentzVector,double> myhit = (mytrack->GetHits())[ihit];
-	  evthits.push_back(myhit);
-	}
+      if (mytrack->GetDetectorName() == det) 
+      {
+	     for (int ihit=0; ihit<mytrack->GetHits().size(); ++ihit) 
+        {
+	       std::pair<TLorentzVector,double> myhit = (mytrack->GetHits())[ihit];
+	       evthits.push_back(myhit);
+	       }
       }
     }
-   
   }
 
+  std::vector<std::pair<TLorentzVector,double> > Event::FillHitVector(std::string det) const
+  {
+    std::vector<std::pair<TLorentzVector,double> > evthits;
+    FillHitVector(evthits,det);
+    return evthits;
+  }
+                          
   
   void Event::IClear()
   {

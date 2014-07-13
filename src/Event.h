@@ -21,6 +21,7 @@ namespace irene {class Track;}
 namespace irene {class Particle;}
 
 class TLorentzVector;
+using std::ostream;
 
 namespace irene {
 
@@ -67,7 +68,10 @@ namespace irene {
     int GetID() const;
 
     /// This method gives a collection of hits, disregarding of the Track they belong to
-    void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, std::string det) const;
+    void FillHitVector(std::vector<std::pair<TLorentzVector,double> >& evthits, 
+                      std::string det) const;
+
+    std::vector<std::pair<TLorentzVector,double> > FillHitVector(std::string det) const;
 
     void IClear();
 

@@ -120,6 +120,7 @@ namespace irene {
 
     void AddProperty(const std::string& pname, double pvalue);
     double FindProperty(const std::string& pname);
+    std::map<std::string, double> const & GetProperties() const;
 
     double GetMass() const;
     double GetCharge() const;
@@ -155,6 +156,8 @@ namespace irene {
   inline const std::string& Particle::GetCreatorProcess() const {return _creator_process;}
   inline void Particle::AddProperty(const std::string& pname, double pvalue) {_properties[pname] = pvalue;}
   inline double Particle::FindProperty(const std::string& pname) {return _properties[pname];}
+  inline std::map<std::string, double> const & Particle::GetProperties() const {return _properties;}
+
   inline double Particle::GetMass() const {return _mass;}
   inline double Particle::GetCharge() const {return _charge;}
 

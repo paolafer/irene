@@ -1,0 +1,51 @@
+File    = table
+Product = irene
+
+#*************************************************
+# Starting Group definition
+Group:
+
+Flavor     = ANY
+Qualifiers = ""
+
+  Action = GetProducts
+    envSet( ${UPS_PROD_NAME_UC}_CXXFLAGS, "" )
+    envSet( ${UPS_PROD_NAME_UC}_CFLAGS, "" )
+    
+Flavor     = ANY
+Qualifiers = "e5:prof"
+
+  Action = GetProducts
+    envSet( ${UPS_PROD_NAME_UC}_CXXFLAGS, "" )
+    envSet( ${UPS_PROD_NAME_UC}_CFLAGS, "" )
+    
+Flavor     = ANY
+Qualifiers = "e5:debug"
+
+  Action = GetProducts
+    envSet( ${UPS_PROD_NAME_UC}_CXXFLAGS, "" )
+    envSet( ${UPS_PROD_NAME_UC}_CFLAGS, "" )
+
+Common:
+  Action = setup
+    prodDir()
+    setupEnv()
+    envSet(${UPS_PROD_NAME_UC}_VERSION, v0_00_00)
+    # cetpkgsupport has get-directory-name and find-path
+    setupRequired(cetpkgsupport)
+    #exeActionRequired(GetFQDir)
+    prodDir( _FQ_DIR, ${${UPS_PROD_NAME_UC}_FQ} )
+    envSet(${UPS_PROD_NAME_UC}_INC, ${UPS_PROD_DIR}include/irene) 
+
+    exeActionRequired(GetProducts)
+
+    envSet(${UPS_PROD_NAME_UC}_LIB, ${UPS_PROD_DIR}lib) 
+    if ( test `uname` = "Darwin" )
+      pathPrepend(DYLD_LIBRARY_PATH, ${${UPS_PROD_NAME_UC}_LIB})
+    else()
+      pathPrepend(LD_LIBRARY_PATH, ${${UPS_PROD_NAME_UC}_LIB})
+    endif ( test `uname` = "Darwin" )
+
+End:
+# End Group definition
+#*************************************************

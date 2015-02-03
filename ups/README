@@ -1,0 +1,6 @@
+To declare irene as an ups product, type:
+
+ups declare irene <version> -r $IRENEDIR 
+  -f ANY  -U $IRENEDIR/ups/ -m irene.table -M $IRENEDIR/ups/
+
+where IRENEDIR is the path to the the root directory of irene

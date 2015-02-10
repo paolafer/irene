@@ -35,11 +35,11 @@ Common:
     setupRequired(cetpkgsupport)
     #exeActionRequired(GetFQDir)
     prodDir( _FQ_DIR, ${${UPS_PROD_NAME_UC}_FQ} )
-    envSet(${UPS_PROD_NAME_UC}_INC, ${UPS_PROD_DIR}include/irene) 
+    envSet(${UPS_PROD_NAME_UC}_INC, ${UPS_PROD_DIR}/include/irene) 
 
     exeActionRequired(GetProducts)
 
-    envSet(${UPS_PROD_NAME_UC}_LIB, ${UPS_PROD_DIR}lib) 
+    envSet(${UPS_PROD_NAME_UC}_LIB, ${UPS_PROD_DIR}/lib) 
     if ( test `uname` = "Darwin" )
       pathPrepend(DYLD_LIBRARY_PATH, ${${UPS_PROD_NAME_UC}_LIB})
     else()

@@ -66,7 +66,7 @@ def write_config(dir_prefix):
     s = s + '    case "$1" in' + '\n'
     s = s + '    --prefix)' + '\n' + '        echo ' + dir_prefix + '\n'
     s = s + '        ;;' + '\n' + '\n'
-    s = s + '    --version)' + '\n' + '        echo ' + 'v0r1p4 ' + '\n'
+    s = s + '    --version)' + '\n' + '        echo ' + 'v0r1p7 ' + '\n'
     s = s + '        exit 0' + '\n' + '        ;;' + '\n' + '\n'
     s = s +  '    --help)' + '\n' + '        usage 0' + '\n'
     s = s + '        ;;' + '\n' + '\n'

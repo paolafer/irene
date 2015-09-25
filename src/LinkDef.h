@@ -21,5 +21,7 @@
 #pragma link C++ class irene::ParameterInfo+;
 #pragma link C++ class std::pair<TLorentzVector,double>+;
 #pragma link C++ class std::vector<std::pair<TLorentzVector,double>>+;
+#pragma link C++ class std::vector<std::pair<TLorentzVector,double>>+;
+#pragma link C++ class std::vector<std::pair<double,int>>+;
 
 #endif
